@@ -16,6 +16,8 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.halilibo.richtext.markdown.Markdown
+import com.halilibo.richtext.ui.material3.RichText
 
 @Composable
 fun EditorRoute(
@@ -124,10 +126,9 @@ internal fun EditorScreen(
                             modifier = Modifier.fillMaxSize().padding(16.dp),
                             color = Color.Transparent
                         ) {
-                            Text(
-                                text = content,
-                                style = MaterialTheme.typography.bodyLarge
-                            )
+                            RichText {
+                                Markdown(content)
+                            }
                         }
                     } else {
                         TextField(

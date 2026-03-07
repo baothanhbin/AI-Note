@@ -1,0 +1,723 @@
+> Task :build-logic:convention:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :build-logic:convention:generateExternalPluginSpecBuilders UP-TO-DATE
+> Task :build-logic:convention:extractPrecompiledScriptPluginPlugins UP-TO-DATE
+> Task :build-logic:convention:compilePluginsBlocks UP-TO-DATE
+> Task :build-logic:convention:generatePrecompiledScriptPluginAccessors UP-TO-DATE
+> Task :build-logic:convention:generateScriptPluginAdapters UP-TO-DATE
+> Task :build-logic:convention:compileKotlin UP-TO-DATE
+> Task :build-logic:convention:compileJava NO-SOURCE
+> Task :build-logic:convention:pluginDescriptors UP-TO-DATE
+> Task :build-logic:convention:processResources UP-TO-DATE
+> Task :build-logic:convention:classes UP-TO-DATE
+> Task :build-logic:convention:jar UP-TO-DATE
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :data:preBuild UP-TO-DATE
+> Task :data:preDebugBuild UP-TO-DATE
+> Task :domain:preBuild UP-TO-DATE
+> Task :domain:preDebugBuild UP-TO-DATE
+> Task :data:writeDebugAarMetadata
+> Task :domain:writeDebugAarMetadata
+> Task :core:common:preBuild UP-TO-DATE
+> Task :core:common:preDebugBuild UP-TO-DATE
+> Task :core:database:preBuild UP-TO-DATE
+> Task :core:database:preDebugBuild UP-TO-DATE
+> Task :core:common:writeDebugAarMetadata
+> Task :core:datastore:preBuild UP-TO-DATE
+> Task :core:datastore:preDebugBuild UP-TO-DATE
+> Task :core:database:writeDebugAarMetadata
+> Task :core:designsystem:preBuild UP-TO-DATE
+> Task :core:designsystem:preDebugBuild UP-TO-DATE
+> Task :core:datastore:writeDebugAarMetadata
+> Task :core:model:preBuild UP-TO-DATE
+> Task :core:model:preDebugBuild UP-TO-DATE
+> Task :core:designsystem:writeDebugAarMetadata
+> Task :core:ui:preBuild UP-TO-DATE
+> Task :core:ui:preDebugBuild UP-TO-DATE
+> Task :core:model:writeDebugAarMetadata
+> Task :feature:editor:preBuild UP-TO-DATE
+> Task :feature:editor:preDebugBuild UP-TO-DATE
+> Task :core:ui:writeDebugAarMetadata
+> Task :feature:graph:preBuild UP-TO-DATE
+> Task :feature:graph:preDebugBuild UP-TO-DATE
+> Task :feature:editor:writeDebugAarMetadata
+> Task :feature:home:preBuild UP-TO-DATE
+> Task :feature:home:preDebugBuild UP-TO-DATE
+> Task :feature:graph:writeDebugAarMetadata
+> Task :feature:search:preBuild UP-TO-DATE
+> Task :feature:search:preDebugBuild UP-TO-DATE
+> Task :feature:home:writeDebugAarMetadata
+> Task :feature:settings:preBuild UP-TO-DATE
+> Task :feature:settings:preDebugBuild UP-TO-DATE
+> Task :feature:search:writeDebugAarMetadata
+> Task :feature:settings:writeDebugAarMetadata
+> Task :data:processDebugNavigationResources
+> Task :domain:processDebugNavigationResources
+> Task :core:common:processDebugNavigationResources
+> Task :core:database:processDebugNavigationResources
+> Task :core:datastore:processDebugNavigationResources
+> Task :core:designsystem:processDebugNavigationResources
+> Task :core:model:processDebugNavigationResources
+> Task :core:ui:processDebugNavigationResources
+> Task :feature:editor:processDebugNavigationResources
+> Task :feature:graph:processDebugNavigationResources
+> Task :feature:home:processDebugNavigationResources
+> Task :app:checkDebugAarMetadata
+> Task :feature:search:processDebugNavigationResources
+> Task :feature:settings:processDebugNavigationResources
+> Task :app:processDebugNavigationResources
+> Task :app:generateDebugResValues
+> Task :data:generateDebugResValues
+> Task :app:compileDebugNavigationResources
+> Task :data:generateDebugResources
+> Task :data:packageDebugResources
+> Task :domain:generateDebugResValues
+> Task :domain:generateDebugResources
+> Task :domain:packageDebugResources
+> Task :core:common:generateDebugResValues
+> Task :core:common:generateDebugResources
+> Task :core:common:packageDebugResources
+> Task :core:database:generateDebugResValues
+> Task :core:database:generateDebugResources
+> Task :core:database:packageDebugResources
+> Task :core:datastore:generateDebugResValues
+> Task :core:datastore:generateDebugResources
+> Task :core:datastore:packageDebugResources
+> Task :core:designsystem:generateDebugResValues
+> Task :core:designsystem:generateDebugResources
+> Task :core:designsystem:packageDebugResources
+> Task :core:model:generateDebugResValues
+> Task :core:model:generateDebugResources
+> Task :core:model:packageDebugResources
+> Task :core:ui:generateDebugResValues
+> Task :core:ui:generateDebugResources
+> Task :core:ui:packageDebugResources
+> Task :feature:editor:generateDebugResValues
+> Task :feature:editor:generateDebugResources
+> Task :feature:editor:packageDebugResources
+> Task :feature:graph:generateDebugResValues
+> Task :feature:graph:generateDebugResources
+> Task :feature:graph:packageDebugResources
+> Task :feature:home:generateDebugResValues
+> Task :feature:home:generateDebugResources
+> Task :feature:home:packageDebugResources
+> Task :feature:search:generateDebugResValues
+> Task :feature:search:generateDebugResources
+> Task :feature:search:packageDebugResources
+> Task :feature:settings:generateDebugResValues
+> Task :feature:settings:generateDebugResources
+> Task :feature:settings:packageDebugResources
+> Task :app:mapDebugSourceSetPaths
+> Task :app:generateDebugResources
+> Task :app:packageDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :data:extractDeepLinksDebug
+> Task :domain:extractDeepLinksDebug
+> Task :core:common:extractDeepLinksDebug
+> Task :core:database:extractDeepLinksDebug
+> Task :core:datastore:extractDeepLinksDebug
+> Task :core:designsystem:extractDeepLinksDebug
+> Task :core:model:extractDeepLinksDebug
+> Task :core:ui:extractDeepLinksDebug
+> Task :app:parseDebugLocalResources
+> Task :feature:editor:extractDeepLinksDebug
+> Task :core:common:processDebugManifest
+
+> Task :domain:processDebugManifest
+package="com.ainote.domain" found in source AndroidManifest.xml: D:\Data\Android\AINote\domain\src\main\AndroidManifest.xml.
+Setting the namespace via the package attribute in the source AndroidManifest.xml is no longer supported, and the value is ignored.
+Recommendation: remove package="com.ainote.domain" from the source AndroidManifest.xml: D:\Data\Android\AINote\domain\src\main\AndroidManifest.xml.
+
+> Task :data:processDebugManifest
+> Task :core:database:processDebugManifest
+
+> Task :feature:editor:processDebugManifest
+package="com.ainote.feature.editor" found in source AndroidManifest.xml: D:\Data\Android\AINote\feature\editor\src\main\AndroidManifest.xml.
+Setting the namespace via the package attribute in the source AndroidManifest.xml is no longer supported, and the value is ignored.
+Recommendation: remove package="com.ainote.feature.editor" from the source AndroidManifest.xml: D:\Data\Android\AINote\feature\editor\src\main\AndroidManifest.xml.
+
+> Task :core:designsystem:processDebugManifest
+> Task :core:ui:processDebugManifest
+> Task :core:datastore:processDebugManifest
+> Task :core:model:processDebugManifest
+> Task :feature:graph:extractDeepLinksDebug
+> Task :feature:home:extractDeepLinksDebug
+> Task :feature:search:extractDeepLinksDebug
+> Task :feature:settings:extractDeepLinksDebug
+> Task :feature:home:processDebugManifest
+
+> Task :feature:search:processDebugManifest
+package="com.ainote.feature.search" found in source AndroidManifest.xml: D:\Data\Android\AINote\feature\search\src\main\AndroidManifest.xml.
+Setting the namespace via the package attribute in the source AndroidManifest.xml is no longer supported, and the value is ignored.
+Recommendation: remove package="com.ainote.feature.search" from the source AndroidManifest.xml: D:\Data\Android\AINote\feature\search\src\main\AndroidManifest.xml.
+
+> Task :data:compileDebugLibraryResources
+> Task :domain:compileDebugLibraryResources
+> Task :core:common:compileDebugLibraryResources
+
+> Task :feature:settings:processDebugManifest
+package="com.ainote.feature.settings" found in source AndroidManifest.xml: D:\Data\Android\AINote\feature\settings\src\main\AndroidManifest.xml.
+Setting the namespace via the package attribute in the source AndroidManifest.xml is no longer supported, and the value is ignored.
+Recommendation: remove package="com.ainote.feature.settings" from the source AndroidManifest.xml: D:\Data\Android\AINote\feature\settings\src\main\AndroidManifest.xml.
+
+> Task :data:parseDebugLocalResources
+> Task :core:database:compileDebugLibraryResources
+
+> Task :feature:graph:processDebugManifest
+package="com.ainote.feature.graph" found in source AndroidManifest.xml: D:\Data\Android\AINote\feature\graph\src\main\AndroidManifest.xml.
+Setting the namespace via the package attribute in the source AndroidManifest.xml is no longer supported, and the value is ignored.
+Recommendation: remove package="com.ainote.feature.graph" from the source AndroidManifest.xml: D:\Data\Android\AINote\feature\graph\src\main\AndroidManifest.xml.
+
+> Task :domain:parseDebugLocalResources
+> Task :core:common:parseDebugLocalResources
+> Task :data:generateDebugRFile
+> Task :app:mergeDebugResources
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:processDebugManifestForPackage
+> Task :core:datastore:compileDebugLibraryResources
+> Task :core:database:parseDebugLocalResources
+> Task :core:designsystem:compileDebugLibraryResources
+> Task :domain:generateDebugRFile
+> Task :core:common:generateDebugRFile
+> Task :core:datastore:parseDebugLocalResources
+> Task :core:model:compileDebugLibraryResources
+> Task :core:designsystem:parseDebugLocalResources
+> Task :core:database:generateDebugRFile
+> Task :core:ui:compileDebugLibraryResources
+> Task :core:datastore:generateDebugRFile
+> Task :core:model:parseDebugLocalResources
+> Task :feature:editor:compileDebugLibraryResources
+> Task :core:ui:parseDebugLocalResources
+> Task :core:model:generateDebugRFile
+> Task :feature:graph:compileDebugLibraryResources
+> Task :feature:editor:parseDebugLocalResources
+> Task :feature:home:compileDebugLibraryResources
+> Task :core:designsystem:generateDebugRFile
+> Task :feature:graph:parseDebugLocalResources
+> Task :feature:search:compileDebugLibraryResources
+> Task :feature:editor:generateDebugRFile
+> Task :feature:settings:compileDebugLibraryResources
+> Task :feature:home:parseDebugLocalResources
+> Task :data:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core:common:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :feature:search:parseDebugLocalResources
+> Task :feature:graph:generateDebugRFile
+> Task :core:ui:generateDebugRFile
+> Task :feature:settings:parseDebugLocalResources
+> Task :feature:home:generateDebugRFile
+> Task :core:database:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core:model:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :feature:search:generateDebugRFile
+> Task :core:common:javaPreCompileDebug
+> Task :feature:settings:generateDebugRFile
+> Task :core:model:javaPreCompileDebug
+> Task :core:datastore:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core:database:javaPreCompileDebug
+> Task :app:processDebugResources
+> Task :core:common:compileDebugKotlin
+> Task :core:model:compileDebugKotlin
+> Task :core:common:compileDebugJavaWithJavac NO-SOURCE
+> Task :core:model:compileDebugJavaWithJavac NO-SOURCE
+> Task :domain:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core:designsystem:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core:datastore:javaPreCompileDebug
+> Task :domain:javaPreCompileDebug
+> Task :data:javaPreCompileDebug
+> Task :core:common:bundleLibCompileToJarDebug
+> Task :core:common:bundleLibRuntimeToJarDebug
+> Task :core:model:bundleLibRuntimeToJarDebug
+> Task :core:model:bundleLibCompileToJarDebug
+> Task :core:ui:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core:designsystem:javaPreCompileDebug
+> Task :feature:editor:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core:ui:javaPreCompileDebug
+> Task :feature:graph:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :feature:home:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :feature:editor:javaPreCompileDebug
+> Task :feature:graph:javaPreCompileDebug
+> Task :core:datastore:kspDebugKotlin
+> Task :feature:home:javaPreCompileDebug
+> Task :feature:search:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :feature:settings:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :feature:search:javaPreCompileDebug
+> Task :feature:settings:javaPreCompileDebug
+> Task :app:javaPreCompileDebug
+> Task :app:mergeDebugShaders
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :data:mergeDebugShaders
+> Task :data:compileDebugShaders NO-SOURCE
+> Task :data:generateDebugAssets UP-TO-DATE
+> Task :data:mergeDebugAssets
+> Task :domain:mergeDebugShaders
+> Task :domain:compileDebugShaders NO-SOURCE
+> Task :domain:generateDebugAssets UP-TO-DATE
+> Task :domain:mergeDebugAssets
+> Task :core:common:mergeDebugShaders
+> Task :core:common:compileDebugShaders NO-SOURCE
+> Task :core:common:generateDebugAssets UP-TO-DATE
+> Task :core:common:mergeDebugAssets
+> Task :core:database:mergeDebugShaders
+> Task :core:database:compileDebugShaders NO-SOURCE
+> Task :core:database:generateDebugAssets UP-TO-DATE
+> Task :core:database:mergeDebugAssets
+> Task :core:datastore:mergeDebugShaders
+> Task :core:datastore:compileDebugShaders NO-SOURCE
+> Task :core:datastore:generateDebugAssets UP-TO-DATE
+> Task :core:datastore:mergeDebugAssets
+> Task :core:designsystem:mergeDebugShaders
+> Task :core:designsystem:compileDebugShaders NO-SOURCE
+> Task :core:designsystem:generateDebugAssets UP-TO-DATE
+> Task :core:designsystem:mergeDebugAssets
+> Task :core:model:mergeDebugShaders
+> Task :core:model:compileDebugShaders NO-SOURCE
+> Task :core:model:generateDebugAssets UP-TO-DATE
+> Task :core:model:mergeDebugAssets
+> Task :core:ui:mergeDebugShaders
+> Task :core:ui:compileDebugShaders NO-SOURCE
+> Task :core:ui:generateDebugAssets UP-TO-DATE
+> Task :core:ui:mergeDebugAssets
+> Task :feature:editor:mergeDebugShaders
+> Task :feature:editor:compileDebugShaders NO-SOURCE
+> Task :feature:editor:generateDebugAssets UP-TO-DATE
+> Task :feature:editor:mergeDebugAssets
+> Task :feature:graph:mergeDebugShaders
+> Task :feature:graph:compileDebugShaders NO-SOURCE
+> Task :feature:graph:generateDebugAssets UP-TO-DATE
+> Task :feature:graph:mergeDebugAssets
+> Task :feature:home:mergeDebugShaders
+> Task :feature:home:compileDebugShaders NO-SOURCE
+> Task :feature:home:generateDebugAssets UP-TO-DATE
+> Task :feature:home:mergeDebugAssets
+> Task :feature:search:mergeDebugShaders
+> Task :feature:search:compileDebugShaders NO-SOURCE
+> Task :feature:search:generateDebugAssets UP-TO-DATE
+> Task :feature:search:mergeDebugAssets
+> Task :feature:settings:mergeDebugShaders
+> Task :feature:settings:compileDebugShaders NO-SOURCE
+> Task :feature:settings:generateDebugAssets UP-TO-DATE
+> Task :feature:settings:mergeDebugAssets
+> Task :app:mergeDebugAssets
+> Task :app:compressDebugAssets
+> Task :app:desugarDebugFileDependencies
+> Task :core:common:processDebugJavaRes
+> Task :core:model:processDebugJavaRes
+
+> Task :core:designsystem:compileDebugKotlin
+w: file:///D:/Data/Android/AINote/core/designsystem/src/main/kotlin/com/ainote/core/designsystem/theme/Theme.kt:71:20 'var statusBarColor: Int' is deprecated. Deprecated in Java.
+
+> Task :core:datastore:compileDebugKotlin
+> Task :app:checkDebugDuplicateClasses
+> Task :core:database:kspDebugKotlin
+> Task :app:l8DexDesugarLibDebug
+> Task :core:datastore:compileDebugJavaWithJavac
+> Task :core:designsystem:compileDebugJavaWithJavac NO-SOURCE
+> Task :core:datastore:processDebugJavaRes
+> Task :core:designsystem:processDebugJavaRes
+> Task :core:designsystem:bundleLibCompileToJarDebug
+> Task :core:designsystem:bundleLibRuntimeToJarDebug
+> Task :core:datastore:transformDebugClassesWithAsm
+> Task :core:database:compileDebugKotlin
+> Task :core:database:compileDebugJavaWithJavac
+> Task :core:datastore:bundleLibRuntimeToJarDebug
+> Task :core:database:transformDebugClassesWithAsm
+> Task :core:datastore:bundleLibCompileToJarDebug
+> Task :core:database:processDebugJavaRes
+> Task :core:database:bundleLibRuntimeToJarDebug
+> Task :core:database:bundleLibCompileToJarDebug
+> Task :core:common:bundleLibRuntimeToDirDebug
+> Task :core:database:bundleLibRuntimeToDirDebug
+> Task :core:designsystem:bundleLibRuntimeToDirDebug
+> Task :app:mergeDebugJniLibFolders
+> Task :data:mergeDebugJniLibFolders
+> Task :data:mergeDebugNativeLibs NO-SOURCE
+> Task :data:copyDebugJniLibsProjectOnly
+> Task :domain:mergeDebugJniLibFolders
+> Task :domain:mergeDebugNativeLibs NO-SOURCE
+> Task :domain:copyDebugJniLibsProjectOnly
+> Task :core:common:mergeDebugJniLibFolders
+> Task :core:common:mergeDebugNativeLibs NO-SOURCE
+> Task :core:common:copyDebugJniLibsProjectOnly
+> Task :core:model:bundleLibRuntimeToDirDebug
+> Task :core:database:mergeDebugJniLibFolders
+> Task :core:database:mergeDebugNativeLibs NO-SOURCE
+> Task :core:datastore:bundleLibRuntimeToDirDebug
+> Task :core:database:copyDebugJniLibsProjectOnly
+> Task :core:datastore:mergeDebugJniLibFolders
+> Task :core:datastore:mergeDebugNativeLibs NO-SOURCE
+> Task :core:datastore:copyDebugJniLibsProjectOnly
+> Task :core:designsystem:mergeDebugJniLibFolders
+> Task :core:designsystem:mergeDebugNativeLibs NO-SOURCE
+> Task :core:designsystem:copyDebugJniLibsProjectOnly
+> Task :core:model:mergeDebugJniLibFolders
+> Task :core:model:mergeDebugNativeLibs NO-SOURCE
+> Task :core:model:copyDebugJniLibsProjectOnly
+> Task :core:ui:mergeDebugJniLibFolders
+> Task :core:ui:mergeDebugNativeLibs NO-SOURCE
+> Task :core:ui:copyDebugJniLibsProjectOnly
+> Task :feature:editor:mergeDebugJniLibFolders
+> Task :feature:editor:mergeDebugNativeLibs NO-SOURCE
+> Task :feature:editor:copyDebugJniLibsProjectOnly
+> Task :feature:graph:mergeDebugJniLibFolders
+> Task :feature:graph:mergeDebugNativeLibs NO-SOURCE
+> Task :feature:graph:copyDebugJniLibsProjectOnly
+> Task :feature:home:mergeDebugJniLibFolders
+> Task :feature:home:mergeDebugNativeLibs NO-SOURCE
+> Task :feature:home:copyDebugJniLibsProjectOnly
+> Task :feature:search:mergeDebugJniLibFolders
+> Task :feature:search:mergeDebugNativeLibs NO-SOURCE
+> Task :feature:search:copyDebugJniLibsProjectOnly
+> Task :feature:settings:mergeDebugJniLibFolders
+> Task :feature:settings:mergeDebugNativeLibs NO-SOURCE
+> Task :feature:settings:copyDebugJniLibsProjectOnly
+> Task :app:validateSigningDebug
+> Task :app:mergeExtDexDebug
+> Task :app:writeDebugAppMetadata
+> Task :app:writeDebugSigningConfigVersions
+> Task :app:preReleaseBuild UP-TO-DATE
+> Task :app:mergeReleaseJniLibFolders
+> Task :data:preReleaseBuild UP-TO-DATE
+> Task :data:mergeReleaseJniLibFolders
+> Task :data:mergeReleaseNativeLibs NO-SOURCE
+> Task :domain:preReleaseBuild UP-TO-DATE
+> Task :data:copyReleaseJniLibsProjectOnly
+> Task :domain:mergeReleaseJniLibFolders
+> Task :domain:mergeReleaseNativeLibs NO-SOURCE
+> Task :core:common:preReleaseBuild UP-TO-DATE
+> Task :domain:copyReleaseJniLibsProjectOnly
+> Task :app:mergeDebugNativeLibs
+> Task :core:common:mergeReleaseJniLibFolders
+> Task :core:common:mergeReleaseNativeLibs NO-SOURCE
+> Task :core:database:preReleaseBuild UP-TO-DATE
+> Task :core:common:copyReleaseJniLibsProjectOnly
+> Task :core:database:mergeReleaseJniLibFolders
+> Task :core:database:mergeReleaseNativeLibs NO-SOURCE
+> Task :core:datastore:preReleaseBuild UP-TO-DATE
+> Task :core:database:copyReleaseJniLibsProjectOnly
+> Task :core:datastore:mergeReleaseJniLibFolders
+> Task :core:datastore:mergeReleaseNativeLibs NO-SOURCE
+> Task :core:designsystem:preReleaseBuild UP-TO-DATE
+> Task :core:designsystem:mergeReleaseJniLibFolders
+> Task :core:designsystem:mergeReleaseNativeLibs NO-SOURCE
+> Task :core:model:preReleaseBuild UP-TO-DATE
+> Task :core:model:mergeReleaseJniLibFolders
+> Task :core:model:mergeReleaseNativeLibs NO-SOURCE
+> Task :core:ui:preReleaseBuild UP-TO-DATE
+> Task :core:model:copyReleaseJniLibsProjectOnly
+> Task :core:ui:mergeReleaseJniLibFolders
+> Task :core:ui:mergeReleaseNativeLibs NO-SOURCE
+> Task :feature:editor:preReleaseBuild UP-TO-DATE
+> Task :feature:editor:mergeReleaseJniLibFolders
+> Task :feature:editor:mergeReleaseNativeLibs NO-SOURCE
+> Task :feature:graph:preReleaseBuild UP-TO-DATE
+> Task :core:designsystem:copyReleaseJniLibsProjectOnly
+> Task :feature:graph:mergeReleaseJniLibFolders
+> Task :feature:graph:mergeReleaseNativeLibs NO-SOURCE
+> Task :feature:editor:copyReleaseJniLibsProjectOnly
+> Task :core:datastore:copyReleaseJniLibsProjectOnly
+> Task :core:ui:copyReleaseJniLibsProjectOnly
+> Task :feature:home:preReleaseBuild UP-TO-DATE
+> Task :feature:graph:copyReleaseJniLibsProjectOnly
+> Task :feature:home:mergeReleaseJniLibFolders
+> Task :feature:home:mergeReleaseNativeLibs NO-SOURCE
+> Task :feature:search:preReleaseBuild UP-TO-DATE
+> Task :feature:home:copyReleaseJniLibsProjectOnly
+> Task :feature:search:mergeReleaseJniLibFolders
+> Task :app:stripDebugDebugSymbols
+> Task :feature:search:mergeReleaseNativeLibs NO-SOURCE
+> Task :feature:settings:preReleaseBuild UP-TO-DATE
+> Task :feature:search:copyReleaseJniLibsProjectOnly
+> Task :data:kspDebugKotlin
+> Task :core:ui:compileDebugKotlin
+> Task :feature:settings:mergeReleaseJniLibFolders
+> Task :core:ui:compileDebugJavaWithJavac NO-SOURCE
+> Task :core:ui:processDebugJavaRes
+> Task :core:ui:bundleLibCompileToJarDebug
+> Task :core:ui:bundleLibRuntimeToJarDebug
+> Task :feature:settings:mergeReleaseNativeLibs NO-SOURCE
+> Task :feature:settings:copyReleaseJniLibsProjectOnly
+> Task :data:prepareReleaseArtProfile
+> Task :core:ui:bundleLibRuntimeToDirDebug
+> Task :domain:prepareReleaseArtProfile
+> Task :core:common:prepareReleaseArtProfile
+> Task :core:database:prepareReleaseArtProfile
+> Task :core:datastore:prepareReleaseArtProfile
+> Task :core:designsystem:prepareReleaseArtProfile
+> Task :core:model:prepareReleaseArtProfile
+> Task :app:mergeReleaseNativeLibs
+> Task :core:ui:prepareReleaseArtProfile
+> Task :feature:editor:prepareReleaseArtProfile
+> Task :feature:graph:prepareReleaseArtProfile
+> Task :feature:home:prepareReleaseArtProfile
+> Task :feature:search:prepareReleaseArtProfile
+> Task :feature:settings:prepareReleaseArtProfile
+> Task :app:stripReleaseDebugSymbols
+> Task :data:generateReleaseResValues
+> Task :data:generateReleaseResources
+> Task :app:mergeReleaseArtProfile
+> Task :app:extractReleaseNativeSymbolTables
+> Task :data:packageReleaseResources
+> Task :app:mergeReleaseNativeDebugMetadata NO-SOURCE
+> Task :data:processReleaseNavigationResources
+> Task :core:common:generateReleaseResValues
+> Task :core:common:generateReleaseResources
+> Task :core:common:packageReleaseResources
+> Task :core:common:processReleaseNavigationResources
+> Task :core:common:javaPreCompileRelease
+> Task :core:database:generateReleaseResValues
+> Task :data:parseReleaseLocalResources
+> Task :core:database:generateReleaseResources
+> Task :core:common:parseReleaseLocalResources
+> Task :data:generateReleaseRFile
+> Task :core:database:packageReleaseResources
+> Task :core:database:processReleaseNavigationResources
+> Task :core:model:generateReleaseResValues
+> Task :core:model:generateReleaseResources
+> Task :core:common:generateReleaseRFile
+> Task :core:database:parseReleaseLocalResources
+> Task :core:model:packageReleaseResources
+> Task :app:expandReleaseL8ArtProfileWildcards
+> Task :core:model:processReleaseNavigationResources
+> Task :core:model:javaPreCompileRelease
+> Task :core:database:generateReleaseRFile
+> Task :core:datastore:generateReleaseResValues
+> Task :core:model:parseReleaseLocalResources
+> Task :core:datastore:generateReleaseResources
+> Task :core:database:javaPreCompileRelease
+> Task :core:model:generateReleaseRFile
+> Task :core:datastore:packageReleaseResources
+> Task :core:datastore:processReleaseNavigationResources
+> Task :core:datastore:parseReleaseLocalResources
+> Task :domain:generateReleaseResValues
+> Task :data:javaPreCompileRelease
+> Task :core:datastore:javaPreCompileRelease
+> Task :core:datastore:generateReleaseRFile
+> Task :domain:generateReleaseResources
+> Task :domain:packageReleaseResources
+> Task :domain:processReleaseNavigationResources
+> Task :domain:parseReleaseLocalResources
+> Task :domain:javaPreCompileRelease
+> Task :core:designsystem:generateReleaseResValues
+> Task :data:compileDebugKotlin
+> Task :core:common:compileReleaseKotlin
+> Task :data:compileDebugJavaWithJavac
+> Task :data:processDebugJavaRes
+> Task :core:common:compileReleaseJavaWithJavac NO-SOURCE
+> Task :core:designsystem:generateReleaseResources
+> Task :domain:generateReleaseRFile
+> Task :core:designsystem:packageReleaseResources
+> Task :core:designsystem:processReleaseNavigationResources
+> Task :core:ui:generateReleaseResValues
+> Task :core:designsystem:javaPreCompileRelease
+> Task :core:designsystem:parseReleaseLocalResources
+> Task :core:ui:generateReleaseResources
+> Task :core:common:bundleLibRuntimeToJarRelease
+> Task :core:designsystem:generateReleaseRFile
+> Task :core:common:bundleLibCompileToJarRelease
+> Task :core:ui:packageReleaseResources
+> Task :core:model:compileReleaseKotlin
+> Task :data:transformDebugClassesWithAsm
+> Task :core:model:compileReleaseJavaWithJavac NO-SOURCE
+> Task :core:ui:processReleaseNavigationResources
+> Task :data:bundleLibRuntimeToJarDebug
+> Task :core:ui:parseReleaseLocalResources
+> Task :feature:home:generateReleaseResValues
+> Task :core:ui:javaPreCompileRelease
+> Task :data:bundleLibCompileToJarDebug
+> Task :core:model:bundleLibCompileToJarRelease
+> Task :core:model:bundleLibRuntimeToJarRelease
+> Task :data:bundleLibRuntimeToDirDebug
+> Task :core:datastore:kspReleaseKotlin
+> Task :feature:home:generateReleaseResources
+> Task :core:ui:generateReleaseRFile
+> Task :feature:home:packageReleaseResources
+> Task :feature:home:processReleaseNavigationResources
+> Task :feature:home:parseReleaseLocalResources
+> Task :feature:editor:generateReleaseResValues
+> Task :feature:home:javaPreCompileRelease
+> Task :feature:editor:generateReleaseResources
+> Task :feature:home:generateReleaseRFile
+> Task :feature:editor:packageReleaseResources
+> Task :feature:editor:processReleaseNavigationResources
+> Task :feature:editor:parseReleaseLocalResources
+> Task :feature:search:generateReleaseResValues
+> Task :feature:editor:javaPreCompileRelease
+> Task :feature:search:generateReleaseResources
+> Task :feature:search:packageReleaseResources
+> Task :feature:search:processReleaseNavigationResources
+> Task :feature:search:parseReleaseLocalResources
+> Task :feature:settings:generateReleaseResValues
+> Task :feature:search:generateReleaseRFile
+> Task :feature:search:javaPreCompileRelease
+> Task :feature:settings:generateReleaseResources
+> Task :feature:settings:packageReleaseResources
+> Task :feature:settings:processReleaseNavigationResources
+> Task :feature:graph:generateReleaseResValues
+> Task :feature:settings:parseReleaseLocalResources
+> Task :feature:graph:generateReleaseResources
+> Task :feature:settings:javaPreCompileRelease
+> Task :feature:settings:generateReleaseRFile
+> Task :feature:graph:packageReleaseResources
+> Task :feature:graph:processReleaseNavigationResources
+> Task :feature:graph:parseReleaseLocalResources
+
+> Task :core:designsystem:compileReleaseKotlin
+w: file:///D:/Data/Android/AINote/core/designsystem/src/main/kotlin/com/ainote/core/designsystem/theme/Theme.kt:71:20 'var statusBarColor: Int' is deprecated. Deprecated in Java.
+
+> Task :feature:editor:generateReleaseRFile
+> Task :core:designsystem:compileReleaseJavaWithJavac NO-SOURCE
+> Task :feature:graph:javaPreCompileRelease
+> Task :feature:graph:generateReleaseRFile
+> Task :core:common:bundleLibRuntimeToDirRelease
+> Task :core:designsystem:bundleLibCompileToJarRelease
+> Task :core:designsystem:bundleLibRuntimeToJarRelease
+> Task :core:designsystem:bundleLibRuntimeToDirRelease
+> Task :core:model:bundleLibRuntimeToDirRelease
+> Task :core:datastore:compileReleaseKotlin
+> Task :domain:kspDebugKotlin
+> Task :app:checkReleaseDuplicateClasses
+> Task :core:datastore:compileReleaseJavaWithJavac
+> Task :core:datastore:transformReleaseClassesWithAsm
+> Task :core:datastore:bundleLibRuntimeToDirRelease
+> Task :app:buildKotlinToolingMetadata
+> Task :data:writeReleaseAarMetadata
+> Task :core:common:writeReleaseAarMetadata
+> Task :core:database:writeReleaseAarMetadata
+> Task :domain:writeReleaseAarMetadata
+> Task :core:datastore:writeReleaseAarMetadata
+> Task :core:designsystem:writeReleaseAarMetadata
+> Task :core:model:writeReleaseAarMetadata
+> Task :core:ui:writeReleaseAarMetadata
+> Task :feature:graph:writeReleaseAarMetadata
+> Task :feature:home:writeReleaseAarMetadata
+> Task :feature:search:writeReleaseAarMetadata
+> Task :feature:settings:writeReleaseAarMetadata
+> Task :core:datastore:bundleLibRuntimeToJarRelease
+> Task :feature:editor:writeReleaseAarMetadata
+> Task :core:datastore:bundleLibCompileToJarRelease
+> Task :app:processReleaseNavigationResources
+> Task :app:compileReleaseNavigationResources
+> Task :app:generateReleaseResValues
+> Task :app:mapReleaseSourceSetPaths
+> Task :app:checkReleaseAarMetadata
+> Task :app:generateReleaseResources
+> Task :domain:compileDebugKotlin
+> Task :core:ui:compileReleaseKotlin
+> Task :core:database:kspReleaseKotlin
+> Task :domain:compileDebugJavaWithJavac
+> Task :domain:processDebugJavaRes
+> Task :domain:transformDebugClassesWithAsm
+> Task :core:ui:compileReleaseJavaWithJavac NO-SOURCE
+> Task :domain:bundleLibCompileToJarDebug
+> Task :domain:bundleLibRuntimeToJarDebug
+> Task :core:ui:bundleLibCompileToJarRelease
+> Task :core:ui:bundleLibRuntimeToJarRelease
+> Task :core:ui:bundleLibRuntimeToDirRelease
+> Task :domain:bundleLibRuntimeToDirDebug
+> Task :core:database:compileReleaseKotlin
+> Task :app:mergeReleaseResources
+> Task :feature:editor:kspDebugKotlin
+> Task :feature:graph:kspDebugKotlin
+> Task :core:database:compileReleaseJavaWithJavac
+> Task :feature:home:kspDebugKotlin
+> Task :app:packageReleaseResources
+> Task :app:createReleaseCompatibleScreenManifests
+> Task :app:extractDeepLinksRelease
+> Task :app:parseReleaseLocalResources
+> Task :data:extractDeepLinksRelease
+> Task :domain:extractDeepLinksRelease
+> Task :core:common:extractDeepLinksRelease
+> Task :core:database:extractDeepLinksRelease
+> Task :data:processReleaseManifest
+> Task :core:datastore:extractDeepLinksRelease
+
+> Task :domain:processReleaseManifest
+package="com.ainote.domain" found in source AndroidManifest.xml: D:\Data\Android\AINote\domain\src\main\AndroidManifest.xml.
+Setting the namespace via the package attribute in the source AndroidManifest.xml is no longer supported, and the value is ignored.
+Recommendation: remove package="com.ainote.domain" from the source AndroidManifest.xml: D:\Data\Android\AINote\domain\src\main\AndroidManifest.xml.
+
+> Task :core:common:processReleaseManifest
+> Task :core:designsystem:extractDeepLinksRelease
+> Task :core:database:processReleaseManifest
+> Task :core:model:extractDeepLinksRelease
+> Task :core:datastore:processReleaseManifest
+> Task :core:ui:extractDeepLinksRelease
+> Task :feature:editor:extractDeepLinksRelease
+> Task :feature:graph:extractDeepLinksRelease
+> Task :core:model:processReleaseManifest
+> Task :core:database:transformReleaseClassesWithAsm
+> Task :core:ui:processReleaseManifest
+> Task :core:designsystem:processReleaseManifest
+
+> Task :feature:editor:processReleaseManifest
+package="com.ainote.feature.editor" found in source AndroidManifest.xml: D:\Data\Android\AINote\feature\editor\src\main\AndroidManifest.xml.
+Setting the namespace via the package attribute in the source AndroidManifest.xml is no longer supported, and the value is ignored.
+Recommendation: remove package="com.ainote.feature.editor" from the source AndroidManifest.xml: D:\Data\Android\AINote\feature\editor\src\main\AndroidManifest.xml.
+
+> Task :feature:graph:processReleaseManifest
+package="com.ainote.feature.graph" found in source AndroidManifest.xml: D:\Data\Android\AINote\feature\graph\src\main\AndroidManifest.xml.
+Setting the namespace via the package attribute in the source AndroidManifest.xml is no longer supported, and the value is ignored.
+Recommendation: remove package="com.ainote.feature.graph" from the source AndroidManifest.xml: D:\Data\Android\AINote\feature\graph\src\main\AndroidManifest.xml.
+
+> Task :feature:home:extractDeepLinksRelease
+> Task :feature:search:extractDeepLinksRelease
+> Task :feature:settings:extractDeepLinksRelease
+> Task :data:compileReleaseLibraryResources
+> Task :domain:compileReleaseLibraryResources
+> Task :core:common:compileReleaseLibraryResources
+> Task :core:database:compileReleaseLibraryResources
+> Task :feature:home:processReleaseManifest
+> Task :core:datastore:compileReleaseLibraryResources
+> Task :core:designsystem:compileReleaseLibraryResources
+
+> Task :feature:search:processReleaseManifest
+package="com.ainote.feature.search" found in source AndroidManifest.xml: D:\Data\Android\AINote\feature\search\src\main\AndroidManifest.xml.
+Setting the namespace via the package attribute in the source AndroidManifest.xml is no longer supported, and the value is ignored.
+Recommendation: remove package="com.ainote.feature.search" from the source AndroidManifest.xml: D:\Data\Android\AINote\feature\search\src\main\AndroidManifest.xml.
+
+> Task :feature:settings:processReleaseManifest
+package="com.ainote.feature.settings" found in source AndroidManifest.xml: D:\Data\Android\AINote\feature\settings\src\main\AndroidManifest.xml.
+Setting the namespace via the package attribute in the source AndroidManifest.xml is no longer supported, and the value is ignored.
+Recommendation: remove package="com.ainote.feature.settings" from the source AndroidManifest.xml: D:\Data\Android\AINote\feature\settings\src\main\AndroidManifest.xml.
+
+> Task :core:model:compileReleaseLibraryResources
+> Task :core:database:bundleLibRuntimeToDirRelease
+> Task :core:database:bundleLibRuntimeToJarRelease
+> Task :feature:search:kspDebugKotlin
+> Task :core:database:bundleLibCompileToJarRelease
+> Task :app:processReleaseMainManifest
+
+> Task :feature:editor:compileDebugKotlin FAILED
+e: file:///D:/Data/Android/AINote/feature/editor/src/main/kotlin/com/ainote/feature/editor/EditorScreen.kt:20:33 Unresolved reference 'RichText'.
+e: file:///D:/Data/Android/AINote/feature/editor/src/main/kotlin/com/ainote/feature/editor/EditorScreen.kt:21:43 Unresolved reference 'RichTextTheme'.
+e: file:///D:/Data/Android/AINote/feature/editor/src/main/kotlin/com/ainote/feature/editor/EditorScreen.kt:130:29 Unresolved reference 'RichTextTheme'.
+e: file:///D:/Data/Android/AINote/feature/editor/src/main/kotlin/com/ainote/feature/editor/EditorScreen.kt:130:43 Unresolved reference 'RichText'.
+e: file:///D:/Data/Android/AINote/feature/editor/src/main/kotlin/com/ainote/feature/editor/EditorScreen.kt:131:33 Unresolved reference 'RichText'.
+e: file:///D:/Data/Android/AINote/feature/editor/src/main/kotlin/com/ainote/feature/editor/EditorScreen.kt:132:37 @Composable invocations can only happen from the context of a @Composable function
+e: file:///D:/Data/Android/AINote/feature/editor/src/main/kotlin/com/ainote/feature/editor/EditorScreen.kt:132:37 Unresolved reference. None of the following candidates is applicable because of a receiver type mismatch:
+fun RichTextScope.Markdown(content: String, markdownParseOptions: MarkdownParseOptions = ..., onLinkClicked: ((String) -> Unit)? = ...): Unit
+
+> Task :feature:settings:kspDebugKotlin
+> Task :feature:graph:compileDebugKotlin
+> Task :feature:home:compileDebugKotlin
+> Task :feature:search:compileDebugKotlin
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':feature:editor:compileDebugKotlin'.
+> A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+   > Compilation error. See log for more details
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 1m 14s
+520 actionable tasks: 511 executed, 9 up-to-date
