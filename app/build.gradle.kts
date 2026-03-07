@@ -69,6 +69,8 @@ dependencies {
     implementation(project(":feature:home"))
     implementation(project(":feature:editor"))
     implementation(project(":feature:search"))
+    implementation(project(":feature:settings"))
+    implementation(project(":feature:graph"))
 
     implementation(libs.androidx.navigation.compose)
     coreLibraryDesugaring(libs.desugar.jdk.libs)

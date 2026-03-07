@@ -7,6 +7,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -23,6 +25,8 @@ fun HomeRoute(
     onNoteClick: (String) -> Unit,
     onAddNoteClick: () -> Unit,
     onSearchClick: () -> Unit,
+    onSettingsClick: () -> Unit,
+    onGraphClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
@@ -33,6 +37,8 @@ fun HomeRoute(
         onNoteClick = onNoteClick,
         onAddNoteClick = onAddNoteClick,
         onSearchClick = onSearchClick,
+        onSettingsClick = onSettingsClick,
+        onGraphClick = onGraphClick,
         onTogglePin = viewModel::togglePin,
         onArchive = viewModel::archiveNote,
         modifier = modifier
@@ -46,6 +52,8 @@ internal fun HomeScreen(
     onNoteClick: (String) -> Unit,
     onAddNoteClick: () -> Unit,
     onSearchClick: () -> Unit,
+    onSettingsClick: () -> Unit,
+    onGraphClick: () -> Unit,
     onTogglePin: (Note) -> Unit,
     onArchive: (String) -> Unit,
     modifier: Modifier = Modifier
@@ -56,8 +64,14 @@ internal fun HomeScreen(
             TopAppBar(
                 title = { Text("AI Note") },
                 actions = {
+                    IconButton(onClick = onGraphClick) {
+                        Icon(androidx.compose.material.icons.Icons.Filled.Share, contentDescription = "Graph View")
+                    }
                     IconButton(onClick = onSearchClick) {
                         Icon(androidx.compose.material.icons.Icons.Filled.Search, contentDescription = "Search notes")
+                    }
+                    IconButton(onClick = onSettingsClick) {
+                        Icon(androidx.compose.material.icons.Icons.Filled.Settings, contentDescription = "Settings")
                     }
                 }
             )

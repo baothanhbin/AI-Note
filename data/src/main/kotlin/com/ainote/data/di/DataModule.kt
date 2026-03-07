@@ -8,6 +8,8 @@ import com.ainote.data.repository.TagRepository
 import com.ainote.data.repository.impl.TagRepositoryImpl
 import com.ainote.data.repository.SearchRepository
 import com.ainote.data.repository.impl.SearchRepositoryImpl
+import com.ainote.data.repository.LinkRepository
+import com.ainote.data.repository.impl.LinkRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -36,4 +38,9 @@ abstract class DataModule {
     abstract fun bindSearchRepository(
         searchRepositoryImpl: SearchRepositoryImpl
     ): SearchRepository
+
+    @Binds
+    abstract fun bindLinkRepository(
+        linkRepositoryImpl: LinkRepositoryImpl
+    ): LinkRepository
 }

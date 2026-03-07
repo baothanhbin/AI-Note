@@ -7,6 +7,7 @@ import com.ainote.core.model.note.Note
 import com.ainote.domain.usecase.note.GetNoteByIdUseCase
 import com.ainote.domain.usecase.note.SaveNoteUseCase
 import com.ainote.domain.usecase.note.UpdateNoteUseCase
+import com.ainote.domain.usecase.user.GetUseMarkdownPreviewUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -25,7 +26,8 @@ sealed interface EditorUiState {
     data class Content(
         val title: String,
         val content: String,
-        val isPinned: Boolean
+        val isPinned: Boolean,
+        val renderMarkdown: Boolean = false
     ) : EditorUiState
 }
 
@@ -34,7 +36,8 @@ class EditorViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getNoteByIdUseCase: GetNoteByIdUseCase,
     private val saveNoteUseCase: SaveNoteUseCase,
-    private val updateNoteUseCase: UpdateNoteUseCase
+    private val updateNoteUseCase: UpdateNoteUseCase,
+    getUseMarkdownPreviewUseCase: GetUseMarkdownPreviewUseCase
 ) : ViewModel() {
 
     private val noteId: String? = savedStateHandle["noteId"]
@@ -47,12 +50,12 @@ class EditorViewModel @Inject constructor(
     private val _isLoading = MutableStateFlow(isEditMode)
 
     val uiState: StateFlow<EditorUiState> = combine(
-        _title, _content, _isPinned, _isLoading
-    ) { title, content, isPinned, isLoading ->
+        _title, _content, _isPinned, _isLoading, getUseMarkdownPreviewUseCase()
+    ) { title, content, isPinned, isLoading, useMarkdown ->
         if (isLoading) {
             EditorUiState.Loading
         } else {
-            EditorUiState.Content(title, content, isPinned)
+            EditorUiState.Content(title, content, isPinned, useMarkdown)
         }
     }.stateIn(
         scope = viewModelScope,

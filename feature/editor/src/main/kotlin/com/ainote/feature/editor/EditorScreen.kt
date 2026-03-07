@@ -5,6 +5,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -50,12 +52,15 @@ internal fun EditorScreen(
     var title by remember { mutableStateOf("") }
     var content by remember { mutableStateOf("") }
     var isPinned by remember { mutableStateOf(false) }
+    var renderMarkdown by remember { mutableStateOf(false) }
+    var isPreviewMode by remember { mutableStateOf(false) }
 
     LaunchedEffect(uiState) {
         if (uiState is EditorUiState.Content) {
             title = uiState.title
             content = uiState.content
             isPinned = uiState.isPinned
+            renderMarkdown = uiState.renderMarkdown
         }
     }
 
@@ -70,6 +75,14 @@ internal fun EditorScreen(
                     }
                 },
                 actions = {
+                    if (renderMarkdown) {
+                        IconButton(onClick = { isPreviewMode = !isPreviewMode }) {
+                            Icon(
+                                imageVector = if (isPreviewMode) Icons.Filled.Edit else Icons.Filled.Info,
+                                contentDescription = if (isPreviewMode) "Edit mode" else "Preview markdown"
+                            )
+                        }
+                    }
                     IconButton(onClick = onTogglePin) {
                         Icon(
                             imageVector = if (isPinned) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
@@ -106,22 +119,34 @@ internal fun EditorScreen(
                         modifier = Modifier.fillMaxWidth()
                     )
                     
-                    TextField(
-                        value = content,
-                        onValueChange = { 
-                            content = it
-                            onContentChange(it) 
-                        },
-                        placeholder = { Text("Note") },
-                        textStyle = MaterialTheme.typography.bodyLarge,
-                        colors = TextFieldDefaults.colors(
-                            focusedContainerColor = Color.Transparent,
-                            unfocusedContainerColor = Color.Transparent,
-                            focusedIndicatorColor = Color.Transparent,
-                            unfocusedIndicatorColor = Color.Transparent
-                        ),
-                        modifier = Modifier.fillMaxSize()
-                    )
+                    if (isPreviewMode) {
+                        Surface(
+                            modifier = Modifier.fillMaxSize().padding(16.dp),
+                            color = Color.Transparent
+                        ) {
+                            Text(
+                                text = content,
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+                        }
+                    } else {
+                        TextField(
+                            value = content,
+                            onValueChange = { 
+                                content = it
+                                onContentChange(it) 
+                            },
+                            placeholder = { Text("Note") },
+                            textStyle = MaterialTheme.typography.bodyLarge,
+                            colors = TextFieldDefaults.colors(
+                                focusedContainerColor = Color.Transparent,
+                                unfocusedContainerColor = Color.Transparent,
+                                focusedIndicatorColor = Color.Transparent,
+                                unfocusedIndicatorColor = Color.Transparent
+                            ),
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    }
                 }
             }
         }

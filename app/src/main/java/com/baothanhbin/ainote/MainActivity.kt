@@ -7,7 +7,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.activity.viewModels
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -16,16 +19,27 @@ import androidx.navigation.navArgument
 import com.ainote.feature.editor.EditorRoute
 import com.ainote.feature.home.HomeRoute
 import com.ainote.feature.search.SearchRoute
+import com.ainote.feature.settings.SettingsRoute
+import com.ainote.feature.graph.GraphRoute
 import com.baothanhbin.ainote.ui.theme.AINoteTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    private val viewModel: MainActivityViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            AINoteTheme {
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+            
+            val useDarkTheme = when (uiState) {
+                is MainActivityUiState.Loading -> false
+                is MainActivityUiState.Success -> (uiState as MainActivityUiState.Success).useDarkMode
+            }
+
+            AINoteTheme(darkTheme = useDarkTheme) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -46,6 +60,12 @@ class MainActivity : ComponentActivity() {
                                 },
                                 onSearchClick = {
                                     navController.navigate("search_route")
+                                },
+                                onSettingsClick = {
+                                    navController.navigate("settings_route")
+                                },
+                                onGraphClick = {
+                                    navController.navigate("graph_route")
                                 }
                             )
                         }
@@ -73,6 +93,25 @@ class MainActivity : ComponentActivity() {
                                     navController.popBackStack()
                                 },
                                 onNoteClick = { noteId ->
+                                    navController.navigate("editor_route?noteId=$noteId")
+                                }
+                            )
+                        }
+                        
+                        composable("settings_route") {
+                            SettingsRoute(
+                                onBackClick = {
+                                    navController.popBackStack()
+                                }
+                            )
+                        }
+                        
+                        composable("graph_route") {
+                            GraphRoute(
+                                onBackClick = {
+                                    navController.popBackStack()
+                                },
+                                onNodeClick = { noteId ->
                                     navController.navigate("editor_route?noteId=$noteId")
                                 }
                             )
