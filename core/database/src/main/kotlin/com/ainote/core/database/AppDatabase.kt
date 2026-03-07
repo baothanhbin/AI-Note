@@ -34,4 +34,6 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun tagDao(): TagDao
     abstract fun linkDao(): LinkDao
     abstract fun searchDao(): SearchDao
+    abstract fun checklistItemDao(): com.ainote.core.database.dao.ChecklistItemDao
+    abstract fun codeBlockDao(): com.ainote.core.database.dao.CodeBlockDao
 }

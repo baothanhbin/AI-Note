@@ -20,6 +20,9 @@ interface NoteDao {
     @Query("SELECT * FROM notes WHERE note_id = :id")
     fun getNoteById(id: String): Flow<NoteEntity?>
 
+    @Query("SELECT * FROM notes WHERE title = :title LIMIT 1")
+    suspend fun getNoteByTitle(title: String): NoteEntity?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOrUpdateNote(note: NoteEntity)
 
@@ -31,4 +34,14 @@ interface NoteDao {
     
     @Query("UPDATE notes SET is_archived = :isArchived WHERE note_id = :id")
     suspend fun updateArchiveStatus(id: String, isArchived: Boolean)
+
+    @Query(
+        """
+        SELECT notes.* FROM notes 
+        INNER JOIN note_tags ON notes.note_id = note_tags.note_id 
+        WHERE note_tags.tag_id = :tagId AND notes.is_archived = 0
+        ORDER BY notes.updated_at DESC
+        """
+    )
+    fun getNotesByTagId(tagId: String): Flow<List<NoteEntity>>
 }

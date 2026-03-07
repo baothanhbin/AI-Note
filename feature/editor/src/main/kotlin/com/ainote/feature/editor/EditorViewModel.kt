@@ -7,6 +7,13 @@ import com.ainote.core.model.note.Note
 import com.ainote.domain.usecase.note.GetNoteByIdUseCase
 import com.ainote.domain.usecase.note.SaveNoteUseCase
 import com.ainote.domain.usecase.note.UpdateNoteUseCase
+import com.ainote.domain.usecase.tag.GetAllTagsUseCase
+import com.ainote.domain.usecase.tag.GetTagsForNoteUseCase
+import com.ainote.domain.usecase.tag.AddTagToNoteUseCase
+import com.ainote.domain.usecase.tag.RemoveTagFromNoteUseCase
+import com.ainote.domain.usecase.link.GetBacklinksUseCase
+import com.ainote.domain.usecase.link.GetOutgoingLinksUseCase
+import com.ainote.domain.usecase.link.ProcessNoteLinksUseCase
 import com.ainote.domain.usecase.user.GetUseMarkdownPreviewUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,6 +21,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -27,7 +35,11 @@ sealed interface EditorUiState {
         val title: String,
         val content: String,
         val isPinned: Boolean,
-        val renderMarkdown: Boolean = false
+        val renderMarkdown: Boolean = false,
+        val backlinks: List<Note> = emptyList(),
+        val outgoingLinks: List<Note> = emptyList(),
+        val tags: List<com.ainote.core.model.note.Tag> = emptyList(),
+        val allAvailableTags: List<com.ainote.core.model.note.Tag> = emptyList()
     ) : EditorUiState
 }
 
@@ -37,11 +49,19 @@ class EditorViewModel @Inject constructor(
     private val getNoteByIdUseCase: GetNoteByIdUseCase,
     private val saveNoteUseCase: SaveNoteUseCase,
     private val updateNoteUseCase: UpdateNoteUseCase,
+    private val processNoteLinksUseCase: ProcessNoteLinksUseCase,
+    private val getBacklinksUseCase: GetBacklinksUseCase,
+    private val getOutgoingLinksUseCase: GetOutgoingLinksUseCase,
+    private val getTagsForNoteUseCase: GetTagsForNoteUseCase,
+    private val getAllTagsUseCase: GetAllTagsUseCase,
+    private val addTagToNoteUseCase: AddTagToNoteUseCase,
+    private val removeTagFromNoteUseCase: RemoveTagFromNoteUseCase,
     getUseMarkdownPreviewUseCase: GetUseMarkdownPreviewUseCase
 ) : ViewModel() {
 
     private val noteId: String? = savedStateHandle["noteId"]
     private var isEditMode = noteId != null
+    private val currentNoteId = noteId ?: UUID.randomUUID().toString()
     private var currentNote: Note? = null
 
     private val _title = MutableStateFlow("")
@@ -49,13 +69,29 @@ class EditorViewModel @Inject constructor(
     private val _isPinned = MutableStateFlow(false)
     private val _isLoading = MutableStateFlow(isEditMode)
 
+    private val backlinksFlow = if (noteId != null) getBacklinksUseCase(noteId) else flowOf(emptyList())
+    private val outgoingLinksFlow = if (noteId != null) getOutgoingLinksUseCase(noteId) else flowOf(emptyList())
+    private val tagsFlow = getTagsForNoteUseCase(currentNoteId)
+    private val allTagsFlow = getAllTagsUseCase()
+
     val uiState: StateFlow<EditorUiState> = combine(
-        _title, _content, _isPinned, _isLoading, getUseMarkdownPreviewUseCase()
-    ) { title, content, isPinned, isLoading, useMarkdown ->
+        combine(_title, _content, _isPinned, _isLoading, getUseMarkdownPreviewUseCase()) { t, c, p, l, m ->
+            Triple(Triple(t, c, p), l, m)
+        },
+        combine(backlinksFlow, outgoingLinksFlow, tagsFlow, allTagsFlow) { b, o, t, a ->
+            listOf(b, o, t, a)
+        }
+    ) { (params, isLoading, useMarkdown), lists ->
+        val (title, content, isPinned) = params
+        val backlinks = lists[0] as List<Note>
+        val outgoingLinks = lists[1] as List<Note>
+        val tags = lists[2] as List<com.ainote.core.model.note.Tag>
+        val allTags = lists[3] as List<com.ainote.core.model.note.Tag>
+
         if (isLoading) {
             EditorUiState.Loading
         } else {
-            EditorUiState.Content(title, content, isPinned, useMarkdown)
+            EditorUiState.Content(title, content, isPinned, useMarkdown, backlinks, outgoingLinks, tags, allTags)
         }
     }.stateIn(
         scope = viewModelScope,
@@ -91,6 +127,56 @@ class EditorViewModel @Inject constructor(
         _isPinned.value = !_isPinned.value
     }
 
+    fun insertChecklist() {
+        val suffix = if (_content.value.endsWith("\n") || _content.value.isEmpty()) "" else "\n"
+        _content.update { it + "${suffix}- [ ] " }
+    }
+
+    fun insertCodeBlock() {
+        val suffix = if (_content.value.endsWith("\n") || _content.value.isEmpty()) "" else "\n"
+        _content.update { it + "${suffix}```\n\n```" }
+    }
+
+    private fun ensureNoteSavedEagerly(onCompletion: () -> Unit) {
+        if (!isEditMode) {
+            viewModelScope.launch {
+                val now = LocalDateTime.now()
+                val newNote = Note(
+                    id = currentNoteId,
+                    title = _title.value,
+                    content = _content.value,
+                    type = com.ainote.core.model.note.NoteType.TEXT,
+                    createdAt = now,
+                    updatedAt = now,
+                    isPinned = _isPinned.value,
+                    isArchived = false
+                )
+                saveNoteUseCase(newNote)
+                isEditMode = true
+                currentNote = newNote
+                onCompletion()
+            }
+        } else {
+            onCompletion()
+        }
+    }
+
+    fun addTag(tagName: String) {
+        ensureNoteSavedEagerly {
+            viewModelScope.launch {
+                addTagToNoteUseCase(currentNoteId, tagName)
+            }
+        }
+    }
+
+    fun removeTag(tagId: String) {
+        ensureNoteSavedEagerly {
+            viewModelScope.launch {
+                removeTagFromNoteUseCase(currentNoteId, tagId)
+            }
+        }
+    }
+
     fun saveNote(onSaveSuccess: () -> Unit) {
         val title = _title.value
         val content = _content.value
@@ -103,7 +189,7 @@ class EditorViewModel @Inject constructor(
 
         viewModelScope.launch {
             val now = LocalDateTime.now()
-            if (isEditMode && currentNote != null) {
+            val targetNoteId = if (isEditMode && currentNote != null) {
                 val updatedNote = currentNote!!.copy(
                     title = title,
                     content = content,
@@ -111,9 +197,11 @@ class EditorViewModel @Inject constructor(
                     updatedAt = now
                 )
                 updateNoteUseCase(updatedNote)
+                updatedNote.id
             } else {
+                val newId = currentNoteId
                 val newNote = Note(
-                    id = UUID.randomUUID().toString(),
+                    id = newId,
                     title = title,
                     content = content,
                     type = com.ainote.core.model.note.NoteType.TEXT,
@@ -123,7 +211,12 @@ class EditorViewModel @Inject constructor(
                     isArchived = false
                 )
                 saveNoteUseCase(newNote)
+                newId
             }
+            
+            // Re-process extracted Note Links 
+            processNoteLinksUseCase(targetNoteId, content)
+            
             onSaveSuccess()
         }
     }

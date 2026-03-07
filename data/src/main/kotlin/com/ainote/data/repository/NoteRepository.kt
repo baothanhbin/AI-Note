@@ -10,6 +10,8 @@ interface NoteRepository {
     
     fun getNoteById(id: String): Flow<Note?>
     
+    suspend fun getNoteByTitle(title: String): Note?
+    
     suspend fun saveNote(note: Note)
     
     suspend fun updateNote(note: Note)
@@ -17,4 +19,6 @@ interface NoteRepository {
     suspend fun deleteNote(note: Note)
     
     suspend fun archiveNote(id: String, isArchived: Boolean)
+
+    fun getNotesByTagId(tagId: String): Flow<List<Note>>
 }

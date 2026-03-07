@@ -9,6 +9,7 @@ dependencies {
 
     add("implementation", project(":core:ui"))
     add("implementation", project(":core:designsystem"))
+    add("implementation", "androidx.compose.material:material-icons-extended")
     add("implementation", project(":core:model"))
     add("implementation", project(":domain"))
 

@@ -73,7 +73,11 @@ internal fun GraphScreen(
                     CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
                 }
                 is GraphUiState.Error -> {
-                    Text("Error rendering graph.", modifier = Modifier.align(Alignment.Center))
+                    com.ainote.core.ui.component.EmptyStateView(
+                        title = "Error",
+                        message = "Could not load graph.",
+                        modifier = Modifier.align(Alignment.Center)
+                    )
                 }
                 is GraphUiState.Success -> {
                     GraphVisualization(

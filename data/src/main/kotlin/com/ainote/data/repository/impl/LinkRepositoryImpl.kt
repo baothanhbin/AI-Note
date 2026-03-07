@@ -21,6 +21,10 @@ class LinkRepositoryImpl @Inject constructor(
         linkDao.deleteLink(link.toEntity())
     }
 
+    override suspend fun deleteOutgoingLinks(noteId: String) {
+        linkDao.deleteOutgoingLinks(noteId)
+    }
+
     override fun getOutgoingLinks(noteId: String): Flow<List<NoteLink>> {
         return linkDao.getOutgoingLinks(noteId).map { docs -> docs.map { it.toExternalModel() } }
     }

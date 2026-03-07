@@ -84,42 +84,44 @@ internal fun SearchScreen(
         ) {
             when (uiState) {
                 is SearchUiState.Idle -> {
-                    Text(
-                        text = "Type to search your notes...",
-                        modifier = Modifier.align(Alignment.Center),
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-                is SearchUiState.Loading -> {
-                    CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-                }
-                is SearchUiState.Error -> {
-                    Text(
-                        text = uiState.message,
-                        color = MaterialTheme.colorScheme.error,
+                    com.ainote.core.ui.component.EmptyStateView(
+                        title = "Search notes",
+                        message = "Type to search your notes...",
                         modifier = Modifier.align(Alignment.Center)
                     )
                 }
-                is SearchUiState.Success -> {
-                    if (uiState.results.isEmpty()) {
-                        Text(
-                            text = "No notes found.",
-                            modifier = Modifier.align(Alignment.Center),
-                            style = MaterialTheme.typography.bodyLarge
-                        )
-                    } else {
-                        LazyColumn(
-                            contentPadding = PaddingValues(16.dp),
-                            verticalArrangement = Arrangement.spacedBy(8.dp),
-                            modifier = Modifier.fillMaxSize()
-                        ) {
-                            items(uiState.results, key = { it.noteId }) { result ->
-                                SearchResultCard(
-                                    result = result,
-                                    modifier = Modifier.clickable { onNoteClick(result.noteId) }
-                                )
-                            }
+                is SearchUiState.Loading -> {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                }
+                is SearchUiState.Error -> {
+                    com.ainote.core.ui.component.EmptyStateView(
+                        title = "Something went wrong",
+                        message = uiState.message,
+                        modifier = Modifier.align(Alignment.Center)
+                    )
+                }
+                is SearchUiState.Success -> if (uiState.results.isEmpty()) {
+                    com.ainote.core.ui.component.EmptyStateView(
+                        title = "No results",
+                        message = "No notes match your search.",
+                        modifier = Modifier.align(Alignment.Center)
+                    )
+                } else {
+                    LazyColumn(
+                        contentPadding = PaddingValues(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        items(uiState.results, key = { it.noteId }) { result ->
+                            SearchResultCard(
+                                result = result,
+                                modifier = Modifier.clickable { onNoteClick(result.noteId) }
+                            )
                         }
                     }
                 }
@@ -176,7 +178,11 @@ fun SearchResultCard(
     modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+        ),
+        shape = MaterialTheme.shapes.medium
     ) {
         Column(
             modifier = Modifier

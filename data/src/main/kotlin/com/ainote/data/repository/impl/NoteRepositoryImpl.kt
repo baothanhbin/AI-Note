@@ -31,6 +31,10 @@ class NoteRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getNoteByTitle(title: String): Note? {
+        return noteDao.getNoteByTitle(title)?.asDomainModel()
+    }
+
     override suspend fun saveNote(note: Note) {
         noteDao.insertOrUpdateNote(note.asEntityModel())
     }
@@ -45,5 +49,11 @@ class NoteRepositoryImpl @Inject constructor(
 
     override suspend fun archiveNote(id: String, isArchived: Boolean) {
         noteDao.updateArchiveStatus(id, isArchived)
+    }
+
+    override fun getNotesByTagId(tagId: String): Flow<List<Note>> {
+        return noteDao.getNotesByTagId(tagId).map { entities ->
+            entities.map { it.asDomainModel() }
+        }
     }
 }

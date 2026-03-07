@@ -10,6 +10,10 @@ import com.ainote.data.repository.SearchRepository
 import com.ainote.data.repository.impl.SearchRepositoryImpl
 import com.ainote.data.repository.LinkRepository
 import com.ainote.data.repository.impl.LinkRepositoryImpl
+import com.ainote.data.repository.ChecklistItemRepository
+import com.ainote.data.repository.impl.ChecklistItemRepositoryImpl
+import com.ainote.data.repository.CodeBlockRepository
+import com.ainote.data.repository.impl.CodeBlockRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -43,4 +47,14 @@ abstract class DataModule {
     abstract fun bindLinkRepository(
         linkRepositoryImpl: LinkRepositoryImpl
     ): LinkRepository
+
+    @Binds
+    abstract fun bindChecklistItemRepository(
+        checklistItemRepositoryImpl: ChecklistItemRepositoryImpl
+    ): ChecklistItemRepository
+
+    @Binds
+    abstract fun bindCodeBlockRepository(
+        codeBlockRepositoryImpl: CodeBlockRepositoryImpl
+    ): CodeBlockRepository
 }

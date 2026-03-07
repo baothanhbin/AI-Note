@@ -7,6 +7,8 @@ import com.ainote.core.database.dao.LinkDao
 import com.ainote.core.database.dao.NoteDao
 import com.ainote.core.database.dao.SearchDao
 import com.ainote.core.database.dao.TagDao
+import com.ainote.core.database.dao.ChecklistItemDao
+import com.ainote.core.database.dao.CodeBlockDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -39,4 +41,10 @@ object DatabaseModule {
 
     @Provides
     fun provideSearchDao(database: AppDatabase): SearchDao = database.searchDao()
+
+    @Provides
+    fun provideChecklistItemDao(database: AppDatabase): ChecklistItemDao = database.checklistItemDao()
+
+    @Provides
+    fun provideCodeBlockDao(database: AppDatabase): CodeBlockDao = database.codeBlockDao()
 }

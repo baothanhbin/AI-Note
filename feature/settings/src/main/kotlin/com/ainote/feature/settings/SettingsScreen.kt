@@ -1,12 +1,25 @@
 package com.ainote.feature.settings
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -42,7 +55,7 @@ internal fun SettingsScreen(
         modifier = modifier,
         topBar = {
             TopAppBar(
-                title = { Text("Settings") },
+                title = { Text("Settings", style = MaterialTheme.typography.titleLarge) },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
@@ -55,51 +68,44 @@ internal fun SettingsScreen(
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
+                .verticalScroll(rememberScrollState())
         ) {
-            SettingSwitchItem(
-                title = "Dark Mode",
-                description = "Enable dark theme across the application",
-                checked = uiState.useDarkMode,
-                onCheckedChange = onToggleDarkMode
-            )
-            Divider(color = MaterialTheme.colorScheme.surfaceVariant)
-            SettingSwitchItem(
-                title = "Markdown Preview",
-                description = "Render markdown formatting in note viewer",
-                checked = uiState.useMarkdownPreview,
-                onCheckedChange = onToggleMarkdownPreview
-            )
-        }
-    }
-}
-
-@Composable
-private fun SettingSwitchItem(
-    title: String,
-    description: String,
-    checked: Boolean,
-    onCheckedChange: (Boolean) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 20.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Column(modifier = Modifier.weight(1f).padding(end = 16.dp)) {
-            Text(text = title, style = MaterialTheme.typography.titleMedium)
-            Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = description,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                "Appearance",
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
+            )
+            ListItem(
+                headlineContent = { Text("Dark mode") },
+                supportingContent = { Text("Use dark theme across the app") },
+                trailingContent = {
+                    Switch(
+                        checked = uiState.useDarkMode,
+                        onCheckedChange = onToggleDarkMode
+                    )
+                },
+                modifier = Modifier.fillMaxWidth()
+            )
+            HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
+
+            Text(
+                "Editor",
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp)
+            )
+            ListItem(
+                headlineContent = { Text("Markdown preview") },
+                supportingContent = { Text("Render markdown formatting in notes") },
+                trailingContent = {
+                    Switch(
+                        checked = uiState.useMarkdownPreview,
+                        onCheckedChange = onToggleMarkdownPreview
+                    )
+                },
+                modifier = Modifier.fillMaxWidth()
             )
         }
-        Switch(
-            checked = checked,
-            onCheckedChange = onCheckedChange
-        )
     }
 }

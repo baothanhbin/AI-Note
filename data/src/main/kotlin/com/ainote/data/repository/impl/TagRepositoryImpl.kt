@@ -20,6 +20,10 @@ class TagRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getTagByName(name: String): Tag? {
+        return tagDao.getTagByName(name)?.asDomainModel()
+    }
+
     override fun getTagsForNote(noteId: String): Flow<List<Tag>> {
         return tagDao.getTagsForNote(noteId).map { entities ->
             entities.map { it.asDomainModel() }
