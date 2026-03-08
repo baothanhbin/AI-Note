@@ -189,15 +189,20 @@ internal fun EditorScreen(
                             title = it
                             onTitleChange(it)
                         },
-                        placeholder = { Text("Title", style = MaterialTheme.typography.titleLarge) },
-                        textStyle = MaterialTheme.typography.titleLarge,
+                        placeholder = { Text("Untitled", style = MaterialTheme.typography.displaySmall, color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)) },
+                        textStyle = MaterialTheme.typography.displaySmall.copy(
+                            fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onBackground
+                        ),
                         colors = TextFieldDefaults.colors(
                             focusedContainerColor = Color.Transparent,
                             unfocusedContainerColor = Color.Transparent,
                             focusedIndicatorColor = Color.Transparent,
                             unfocusedIndicatorColor = Color.Transparent
                         ),
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 16.dp)
                     )
 
                     if (uiState is EditorUiState.Content) {
@@ -250,12 +255,6 @@ internal fun EditorScreen(
                         )
                     }
 
-                    EditorToolbar(
-                        onInsertChecklist = onInsertChecklist,
-                        onInsertCodeBlock = onInsertCodeBlock,
-                        onAddTag = { showTagSheet = true }
-                    )
-
                     if (uiState is EditorUiState.Content && (uiState.backlinks.isNotEmpty() || uiState.outgoingLinks.isNotEmpty())) {
                         ConnectionsSection(
                             backlinks = uiState.backlinks,
@@ -263,6 +262,22 @@ internal fun EditorScreen(
                             onNoteClick = onNoteClick
                         )
                     }
+                    
+                    // Space for floating toolbar
+                    Spacer(modifier = Modifier.padding(bottom = 80.dp))
+                }
+                
+                // Floating Toolbar
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .padding(bottom = 16.dp)
+                ) {
+                    EditorToolbar(
+                        onInsertChecklist = onInsertChecklist,
+                        onInsertCodeBlock = onInsertCodeBlock,
+                        onAddTag = { showTagSheet = true }
+                    )
                 }
             }
         }
@@ -276,35 +291,30 @@ private fun EditorToolbar(
     onAddTag: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    Card(
+        shape = androidx.compose.foundation.shape.RoundedCornerShape(50),
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        modifier = modifier.padding(horizontal = 16.dp)
     ) {
-        FilledTonalButton(
-            onClick = onInsertChecklist,
-            modifier = Modifier.padding(0.dp)
+        Row(
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(Icons.Default.CheckBox, contentDescription = null, modifier = Modifier.size(18.dp))
-            Spacer(modifier = Modifier.size(4.dp))
-            Text("Checklist", style = MaterialTheme.typography.labelMedium)
-        }
-        FilledTonalButton(
-            onClick = onInsertCodeBlock,
-            modifier = Modifier.padding(0.dp)
-        ) {
-            Icon(Icons.Default.Code, contentDescription = null, modifier = Modifier.size(18.dp))
-            Spacer(modifier = Modifier.size(4.dp))
-            Text("Code", style = MaterialTheme.typography.labelMedium)
-        }
-        FilledTonalButton(
-            onClick = onAddTag,
-            modifier = Modifier.padding(0.dp)
-        ) {
-            Icon(Icons.Default.Label, contentDescription = null, modifier = Modifier.size(18.dp))
-            Spacer(modifier = Modifier.size(4.dp))
-            Text("Tag", style = MaterialTheme.typography.labelMedium)
+            IconButton(onClick = onInsertChecklist, modifier = Modifier.size(36.dp)) {
+                Icon(Icons.Default.CheckBox, contentDescription = "Checklist")
+            }
+            IconButton(onClick = onInsertCodeBlock, modifier = Modifier.size(36.dp)) {
+                Icon(Icons.Default.Code, contentDescription = "Code Block")
+            }
+            IconButton(onClick = onAddTag, modifier = Modifier.size(36.dp)) {
+                Icon(Icons.Default.Label, contentDescription = "Tag")
+            }
+            // AI Action placeholder
+            IconButton(onClick = { /* TODO Phase 2 */ }, modifier = Modifier.size(36.dp)) {
+                Icon(Icons.Default.Info, contentDescription = "Ask AI", tint = MaterialTheme.colorScheme.primary)
+            }
         }
     }
 }

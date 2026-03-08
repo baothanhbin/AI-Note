@@ -31,7 +31,8 @@ sealed interface HomeUiState {
         val pinnedNotes: List<Note>,
         val searchQuery: String,
         val sortOrder: SortOrder,
-        val isGridView: Boolean
+        val isGridView: Boolean,
+        val totalNotesCount: Int = 0
     ) : HomeUiState
     data class Error(val message: String) : HomeUiState
 }
@@ -66,12 +67,14 @@ class HomeViewModel @Inject constructor(
         val filteredNotes = filterNotes(unpinned, query)
         val sortedPinned = sortNotes(filteredPinned, order)
         val sortedNotes = sortNotes(filteredNotes, order)
+        val totalNotesCount = allNotes.count { !it.isArchived }
         HomeUiState.Success(
             notes = sortedNotes,
             pinnedNotes = sortedPinned,
             searchQuery = query,
             sortOrder = order,
-            isGridView = grid
+            isGridView = grid,
+            totalNotesCount = totalNotesCount
         )
     }.stateIn(
         scope = viewModelScope,
