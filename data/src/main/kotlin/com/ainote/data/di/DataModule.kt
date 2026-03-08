@@ -1,18 +1,18 @@
 package com.ainote.data.di
 
-import com.ainote.data.repository.NoteRepository
-import com.ainote.data.repository.UserDataRepository
+import com.ainote.domain.repository.NoteRepository
+import com.ainote.domain.repository.UserDataRepository
 import com.ainote.data.repository.impl.NoteRepositoryImpl
 import com.ainote.data.repository.impl.UserDataRepositoryImpl
-import com.ainote.data.repository.TagRepository
+import com.ainote.domain.repository.TagRepository
 import com.ainote.data.repository.impl.TagRepositoryImpl
-import com.ainote.data.repository.SearchRepository
+import com.ainote.domain.repository.SearchRepository
 import com.ainote.data.repository.impl.SearchRepositoryImpl
-import com.ainote.data.repository.LinkRepository
+import com.ainote.domain.repository.LinkRepository
 import com.ainote.data.repository.impl.LinkRepositoryImpl
-import com.ainote.data.repository.ChecklistItemRepository
+import com.ainote.domain.repository.ChecklistItemRepository
 import com.ainote.data.repository.impl.ChecklistItemRepositoryImpl
-import com.ainote.data.repository.CodeBlockRepository
+import com.ainote.domain.repository.CodeBlockRepository
 import com.ainote.data.repository.impl.CodeBlockRepositoryImpl
 import dagger.Binds
 import dagger.Module

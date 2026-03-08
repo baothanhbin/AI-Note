@@ -3,7 +3,7 @@ package com.ainote.data.repository.impl
 import com.ainote.core.database.dao.ChecklistItemDao
 import com.ainote.data.model.asDomainModel
 import com.ainote.data.model.asEntityModel
-import com.ainote.data.repository.ChecklistItemRepository
+import com.ainote.domain.repository.ChecklistItemRepository
 import com.ainote.core.model.note.ChecklistItem
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

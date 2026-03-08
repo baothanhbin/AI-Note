@@ -3,7 +3,7 @@ package com.ainote.data.repository.impl
 import com.ainote.core.database.dao.LinkDao
 import com.ainote.core.database.model.NoteLinkEntity
 import com.ainote.core.model.note.NoteLink
-import com.ainote.data.repository.LinkRepository
+import com.ainote.domain.repository.LinkRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.time.Instant

@@ -1,8 +1,8 @@
 package com.ainote.domain.usecase.link
 
 import com.ainote.core.model.note.NoteLink
-import com.ainote.data.repository.LinkRepository
-import com.ainote.data.repository.NoteRepository
+import com.ainote.domain.repository.LinkRepository
+import com.ainote.domain.repository.NoteRepository
 import java.time.LocalDateTime
 import javax.inject.Inject
 

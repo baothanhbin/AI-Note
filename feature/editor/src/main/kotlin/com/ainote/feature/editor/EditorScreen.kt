@@ -84,6 +84,9 @@ fun EditorRoute(
         onRemoveTag = viewModel::removeTag,
         onInsertChecklist = viewModel::insertChecklist,
         onInsertCodeBlock = viewModel::insertCodeBlock,
+        onSuggestTitle = viewModel::suggestTitle,
+        onSummarize = viewModel::summarizeNote,
+        onExtractTags = viewModel::extractAndAddTags,
         onNoteClick = onNoteClick,
         modifier = modifier
     )
@@ -102,6 +105,9 @@ internal fun EditorScreen(
     onRemoveTag: (String) -> Unit,
     onInsertChecklist: () -> Unit,
     onInsertCodeBlock: () -> Unit,
+    onSuggestTitle: () -> Unit,
+    onSummarize: () -> Unit,
+    onExtractTags: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var title by remember { mutableStateOf("") }
@@ -110,6 +116,7 @@ internal fun EditorScreen(
     var renderMarkdown by remember { mutableStateOf(false) }
     var isPreviewMode by remember { mutableStateOf(false) }
     var showTagSheet by remember { mutableStateOf(false) }
+    var showAiSheet by remember { mutableStateOf(false) }
     var tagSearchQuery by remember { mutableStateOf("") }
 
     LaunchedEffect(uiState) {
@@ -178,6 +185,15 @@ internal fun EditorScreen(
                     )
                 }
 
+                if (showAiSheet) {
+                    AiActionsBottomSheet(
+                        onSuggestTitle = onSuggestTitle,
+                        onSummarize = onSummarize,
+                        onExtractTags = onExtractTags,
+                        onDismiss = { showAiSheet = false }
+                    )
+                }
+
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
@@ -202,7 +218,16 @@ internal fun EditorScreen(
                         ),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(vertical = 16.dp)
+                            .padding(vertical = 16.dp),
+                        trailingIcon = {
+                            if (uiState is EditorUiState.Content && uiState.isGeneratingAi) {
+                                androidx.compose.material3.CircularProgressIndicator(
+                                    modifier = Modifier.size(24.dp),
+                                    strokeWidth = 2.dp,
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                            }
+                        }
                     )
 
                     if (uiState is EditorUiState.Content) {
@@ -276,7 +301,8 @@ internal fun EditorScreen(
                     EditorToolbar(
                         onInsertChecklist = onInsertChecklist,
                         onInsertCodeBlock = onInsertCodeBlock,
-                        onAddTag = { showTagSheet = true }
+                        onAddTag = { showTagSheet = true },
+                        onAiClick = { showAiSheet = true }
                     )
                 }
             }
@@ -289,6 +315,7 @@ private fun EditorToolbar(
     onInsertChecklist: () -> Unit,
     onInsertCodeBlock: () -> Unit,
     onAddTag: () -> Unit,
+    onAiClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -312,7 +339,7 @@ private fun EditorToolbar(
                 Icon(Icons.Default.Label, contentDescription = "Tag")
             }
             // AI Action placeholder
-            IconButton(onClick = { /* TODO Phase 2 */ }, modifier = Modifier.size(36.dp)) {
+            IconButton(onClick = onAiClick, modifier = Modifier.size(36.dp)) {
                 Icon(Icons.Default.Info, contentDescription = "Ask AI", tint = MaterialTheme.colorScheme.primary)
             }
         }
@@ -471,6 +498,48 @@ private fun LinkCard(
                     )
                 }
             }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun AiActionsBottomSheet(
+    onSuggestTitle: () -> Unit,
+    onSummarize: () -> Unit,
+    onExtractTags: () -> Unit,
+    onDismiss: () -> Unit
+) {
+    ModalBottomSheet(onDismissRequest = onDismiss) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            Text(
+                "AI Actions",
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
+            androidx.compose.material3.ListItem(
+                headlineContent = { Text("Suggest a Title") },
+                supportingContent = { Text("Generate a title based on your note content") },
+                leadingContent = { Icon(Icons.Default.Info, contentDescription = null, tint = MaterialTheme.colorScheme.primary) },
+                modifier = Modifier.clickable { onSuggestTitle(); onDismiss() }
+            )
+            androidx.compose.material3.ListItem(
+                headlineContent = { Text("Summarize Note") },
+                supportingContent = { Text("Append an AI-generated summary to your note") },
+                leadingContent = { Icon(Icons.Default.Info, contentDescription = null, tint = MaterialTheme.colorScheme.primary) },
+                modifier = Modifier.clickable { onSummarize(); onDismiss() }
+            )
+            androidx.compose.material3.ListItem(
+                headlineContent = { Text("Extract Tags") },
+                supportingContent = { Text("Auto-detect and add relevant tags") },
+                leadingContent = { Icon(Icons.Default.Info, contentDescription = null, tint = MaterialTheme.colorScheme.primary) },
+                modifier = Modifier.clickable { onExtractTags(); onDismiss() }
+            )
+            Spacer(modifier = Modifier.padding(bottom = 24.dp))
         }
     }
 }

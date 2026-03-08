@@ -1,7 +1,7 @@
 package com.ainote.domain.usecase.search
 
 import com.ainote.core.model.search.SearchResult
-import com.ainote.data.repository.SearchRepository
+import com.ainote.domain.repository.SearchRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

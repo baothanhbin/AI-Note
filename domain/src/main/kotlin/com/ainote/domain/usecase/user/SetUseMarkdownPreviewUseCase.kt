@@ -1,6 +1,6 @@
 package com.ainote.domain.usecase.user
 
-import com.ainote.data.repository.UserDataRepository
+import com.ainote.domain.repository.UserDataRepository
 import javax.inject.Inject
 
 class SetUseMarkdownPreviewUseCase @Inject constructor(

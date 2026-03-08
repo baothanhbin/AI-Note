@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import androidx.compose.runtime.Stable
 import javax.inject.Inject
 
 enum class SortOrder {
@@ -26,6 +27,7 @@ enum class SortOrder {
 
 sealed interface HomeUiState {
     data object Loading : HomeUiState
+    @Stable
     data class Success(
         val notes: List<Note>,
         val pinnedNotes: List<Note>,
@@ -54,27 +56,41 @@ class HomeViewModel @Inject constructor(
     private val _isGridView = MutableStateFlow(false)
     val isGridView: StateFlow<Boolean> = _isGridView.asStateFlow()
 
+    private data class ProcessedNotes(
+        val notes: List<Note>,
+        val pinnedNotes: List<Note>,
+        val searchQuery: String,
+        val sortOrder: SortOrder,
+        val totalNotesCount: Int
+    )
+
     val uiState: StateFlow<HomeUiState> = combine(
         getAllNotesUseCase(),
         getPinnedNotesUseCase(),
         _searchQuery,
-        _sortOrder,
-        _isGridView
-    ) { allNotes, pinnedNotes, query, order, grid ->
+        _sortOrder
+    ) { allNotes, pinnedNotes, query, order ->
         val unpinned = allNotes.filter { !it.isPinned && !it.isArchived }
         val pinned = pinnedNotes.filter { !it.isArchived }
         val filteredPinned = filterNotes(pinned, query)
         val filteredNotes = filterNotes(unpinned, query)
         val sortedPinned = sortNotes(filteredPinned, order)
         val sortedNotes = sortNotes(filteredNotes, order)
-        val totalNotesCount = allNotes.count { !it.isArchived }
-        HomeUiState.Success(
+        ProcessedNotes(
             notes = sortedNotes,
             pinnedNotes = sortedPinned,
             searchQuery = query,
             sortOrder = order,
+            totalNotesCount = allNotes.count { !it.isArchived }
+        )
+    }.combine(_isGridView) { processed, grid ->
+        HomeUiState.Success(
+            notes = processed.notes,
+            pinnedNotes = processed.pinnedNotes,
+            searchQuery = processed.searchQuery,
+            sortOrder = processed.sortOrder,
             isGridView = grid,
-            totalNotesCount = totalNotesCount
+            totalNotesCount = processed.totalNotesCount
         )
     }.stateIn(
         scope = viewModelScope,

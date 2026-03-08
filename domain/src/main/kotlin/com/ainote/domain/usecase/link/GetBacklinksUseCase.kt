@@ -1,8 +1,8 @@
 package com.ainote.domain.usecase.link
 
 import com.ainote.core.model.note.Note
-import com.ainote.data.repository.LinkRepository
-import com.ainote.data.repository.NoteRepository
+import com.ainote.domain.repository.LinkRepository
+import com.ainote.domain.repository.NoteRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

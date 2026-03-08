@@ -3,7 +3,7 @@ package com.ainote.data.repository.impl
 import com.ainote.core.database.dao.NoteDao
 import com.ainote.data.model.asDomainModel
 import com.ainote.data.model.asEntityModel
-import com.ainote.data.repository.NoteRepository
+import com.ainote.domain.repository.NoteRepository
 import com.ainote.core.model.note.Note
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

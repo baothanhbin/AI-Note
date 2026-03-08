@@ -1,6 +1,6 @@
 package com.ainote.domain.usecase.note
 
-import com.ainote.data.repository.NoteRepository
+import com.ainote.domain.repository.NoteRepository
 import javax.inject.Inject
 
 class ArchiveNoteUseCase @Inject constructor(

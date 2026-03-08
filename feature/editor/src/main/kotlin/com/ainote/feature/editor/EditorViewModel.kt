@@ -25,6 +25,9 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import com.ainote.domain.ai.usecase.SuggestTitleUseCase
+import com.ainote.domain.ai.usecase.SummarizeNoteUseCase
+import com.ainote.domain.ai.usecase.ExtractTagsUseCase
 import java.time.LocalDateTime
 import java.util.UUID
 import javax.inject.Inject
@@ -39,7 +42,8 @@ sealed interface EditorUiState {
         val backlinks: List<Note> = emptyList(),
         val outgoingLinks: List<Note> = emptyList(),
         val tags: List<com.ainote.core.model.note.Tag> = emptyList(),
-        val allAvailableTags: List<com.ainote.core.model.note.Tag> = emptyList()
+        val allAvailableTags: List<com.ainote.core.model.note.Tag> = emptyList(),
+        val isGeneratingAi: Boolean = false
     ) : EditorUiState
 }
 
@@ -56,6 +60,9 @@ class EditorViewModel @Inject constructor(
     private val getAllTagsUseCase: GetAllTagsUseCase,
     private val addTagToNoteUseCase: AddTagToNoteUseCase,
     private val removeTagFromNoteUseCase: RemoveTagFromNoteUseCase,
+    private val suggestTitleUseCase: SuggestTitleUseCase,
+    private val summarizeNoteUseCase: SummarizeNoteUseCase,
+    private val extractTagsUseCase: ExtractTagsUseCase,
     getUseMarkdownPreviewUseCase: GetUseMarkdownPreviewUseCase
 ) : ViewModel() {
 
@@ -69,6 +76,8 @@ class EditorViewModel @Inject constructor(
     private val _isPinned = MutableStateFlow(false)
     private val _isLoading = MutableStateFlow(isEditMode)
 
+    private val _isGeneratingAi = MutableStateFlow(false)
+
     private val backlinksFlow = if (noteId != null) getBacklinksUseCase(noteId) else flowOf(emptyList())
     private val outgoingLinksFlow = if (noteId != null) getOutgoingLinksUseCase(noteId) else flowOf(emptyList())
     private val tagsFlow = getTagsForNoteUseCase(currentNoteId)
@@ -78,8 +87,8 @@ class EditorViewModel @Inject constructor(
         combine(_title, _content, _isPinned, _isLoading, getUseMarkdownPreviewUseCase()) { t, c, p, l, m ->
             Triple(Triple(t, c, p), l, m)
         },
-        combine(backlinksFlow, outgoingLinksFlow, tagsFlow, allTagsFlow) { b, o, t, a ->
-            listOf(b, o, t, a)
+        combine(backlinksFlow, outgoingLinksFlow, tagsFlow, allTagsFlow, _isGeneratingAi) { b, o, t, a, ai ->
+            listOf(b, o, t, a, ai)
         }
     ) { (params, isLoading, useMarkdown), lists ->
         val (title, content, isPinned) = params
@@ -87,11 +96,12 @@ class EditorViewModel @Inject constructor(
         val outgoingLinks = lists[1] as List<Note>
         val tags = lists[2] as List<com.ainote.core.model.note.Tag>
         val allTags = lists[3] as List<com.ainote.core.model.note.Tag>
+        val isGeneratingAi = lists[4] as Boolean
 
         if (isLoading) {
             EditorUiState.Loading
         } else {
-            EditorUiState.Content(title, content, isPinned, useMarkdown, backlinks, outgoingLinks, tags, allTags)
+            EditorUiState.Content(title, content, isPinned, useMarkdown, backlinks, outgoingLinks, tags, allTags, isGeneratingAi)
         }
     }.stateIn(
         scope = viewModelScope,
@@ -135,6 +145,55 @@ class EditorViewModel @Inject constructor(
     fun insertCodeBlock() {
         val suffix = if (_content.value.endsWith("\n") || _content.value.isEmpty()) "" else "\n"
         _content.update { it + "${suffix}```\n\n```" }
+    }
+
+    fun suggestTitle() {
+        val content = _content.value
+        if (content.isBlank()) return
+        
+        viewModelScope.launch {
+            _isGeneratingAi.update { true }
+            val result = suggestTitleUseCase(content)
+            result.onSuccess { generatedTitle ->
+                _title.value = generatedTitle
+            }
+            _isGeneratingAi.update { false }
+        }
+    }
+
+    fun summarizeNote() {
+        val content = _content.value
+        if (content.isBlank()) return
+        
+        viewModelScope.launch {
+            _isGeneratingAi.update { true }
+            val result = summarizeNoteUseCase(content)
+            result.onSuccess { summary ->
+                val newContent = "$content\n\n> **Summary:**\n> $summary"
+                _content.value = newContent
+            }
+            _isGeneratingAi.update { false }
+        }
+    }
+
+    fun extractAndAddTags() {
+        val content = _content.value
+        if (content.isBlank()) return
+        
+        viewModelScope.launch {
+            _isGeneratingAi.update { true }
+            val result = extractTagsUseCase(content)
+            result.onSuccess { extractedTags ->
+                ensureNoteSavedEagerly {
+                    viewModelScope.launch {
+                        extractedTags.forEach { tagName ->
+                            addTagToNoteUseCase(currentNoteId, tagName)
+                        }
+                    }
+                }
+            }
+            _isGeneratingAi.update { false }
+        }
     }
 
     private fun ensureNoteSavedEagerly(onCompletion: () -> Unit) {

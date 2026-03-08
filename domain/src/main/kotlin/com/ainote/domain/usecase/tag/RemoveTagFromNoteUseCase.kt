@@ -1,6 +1,6 @@
 package com.ainote.domain.usecase.tag
 
-import com.ainote.data.repository.TagRepository
+import com.ainote.domain.repository.TagRepository
 import javax.inject.Inject
 
 class RemoveTagFromNoteUseCase @Inject constructor(

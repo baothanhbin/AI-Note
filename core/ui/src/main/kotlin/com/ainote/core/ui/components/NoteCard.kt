@@ -25,6 +25,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,22 +38,31 @@ import com.ainote.core.model.note.NoteType
 import com.ainote.core.designsystem.theme.AINoteThemeExtras
 import java.time.format.DateTimeFormatter
 
+private val dateFormatter = DateTimeFormatter.ofPattern("MMM dd, yyyy")
+
 @Composable
 fun NoteCard(
     note: Note,
     modifier: Modifier = Modifier
 ) {
+    val contentPreview = remember(note.content) {
+        note.content.take(200).ifEmpty { "Empty note..." }
+    }
+    val formattedDate = remember(note.updatedAt) {
+        dateFormatter.format(note.updatedAt)
+    }
+
     Card(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface
         ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp), // Tonal elevation
-        shape = RoundedCornerShape(20.dp) // Bo góc lớn 20dp
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        shape = RoundedCornerShape(20.dp)
     ) {
         Column(
             modifier = Modifier
-                .padding(20.dp) // Spacing rộng hơn thông thường
+                .padding(20.dp)
                 .fillMaxWidth()
         ) {
             Row(
@@ -85,7 +95,7 @@ fun NoteCard(
             Spacer(modifier = Modifier.height(12.dp))
 
             Text(
-                text = note.content.take(200).ifEmpty { "Empty note..." },
+                text = contentPreview,
                 style = MaterialTheme.typography.bodyMedium,
                 maxLines = 3,
                 overflow = TextOverflow.Ellipsis,
@@ -105,9 +115,8 @@ fun NoteCard(
                 Spacer(modifier = Modifier.width(12.dp))
 
                 // Date
-                val formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy")
                 Text(
-                    text = formatter.format(note.updatedAt),
+                    text = formattedDate,
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
                 )

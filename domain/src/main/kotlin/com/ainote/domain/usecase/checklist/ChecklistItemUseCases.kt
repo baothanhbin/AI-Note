@@ -1,7 +1,7 @@
 package com.ainote.domain.usecase.checklist
 
 import com.ainote.core.model.note.ChecklistItem
-import com.ainote.data.repository.ChecklistItemRepository
+import com.ainote.domain.repository.ChecklistItemRepository
 import javax.inject.Inject
 import java.util.UUID
 

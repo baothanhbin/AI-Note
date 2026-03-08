@@ -4,7 +4,7 @@ import com.ainote.core.database.dao.TagDao
 import com.ainote.core.database.model.NoteTagCrossRef
 import com.ainote.data.model.asDomainModel
 import com.ainote.data.model.asEntityModel
-import com.ainote.data.repository.TagRepository
+import com.ainote.domain.repository.TagRepository
 import com.ainote.core.model.note.Tag
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

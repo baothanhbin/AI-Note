@@ -41,6 +41,12 @@ android {
     }
 }
 
+composeCompiler {
+    stabilityConfigurationFile.set(
+        rootProject.layout.projectDirectory.file("compose_compiler_config.conf")
+    )
+}
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)

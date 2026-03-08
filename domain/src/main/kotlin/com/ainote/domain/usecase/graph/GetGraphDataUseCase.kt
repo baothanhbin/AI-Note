@@ -3,7 +3,7 @@ package com.ainote.domain.usecase.graph
 import com.ainote.core.model.graph.GraphData
 import com.ainote.core.model.graph.GraphEdge
 import com.ainote.core.model.graph.GraphNode
-import com.ainote.data.repository.LinkRepository
+import com.ainote.domain.repository.LinkRepository
 import com.ainote.domain.usecase.note.GetAllNotesUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine

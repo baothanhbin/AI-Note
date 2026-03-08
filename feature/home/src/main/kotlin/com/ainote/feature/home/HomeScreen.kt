@@ -1,6 +1,5 @@
 package com.ainote.feature.home
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -15,13 +14,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -43,7 +39,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -59,7 +54,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.ainote.core.designsystem.theme.AINoteThemeExtras
 import com.ainote.core.model.note.Note
 import com.ainote.core.ui.components.NoteCard
 
@@ -136,28 +130,31 @@ internal fun HomeScreen(
                     }
                 }
                 is HomeUiState.Success -> {
-                    LazyColumn(
+                    LazyVerticalGrid(
+                        columns = if (uiState.isGridView) GridCells.Fixed(2) else GridCells.Fixed(1),
                         modifier = Modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(bottom = 80.dp) // space for FAB
+                        contentPadding = PaddingValues(start = 24.dp, end = 24.dp, bottom = 80.dp), // space for FAB
+                        horizontalArrangement = Arrangement.spacedBy(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
-                        item {
+                        item(key = "insights", span = { GridItemSpan(maxLineSpan) }) {
                             InsightsRow(totalNotes = uiState.totalNotesCount)
                         }
 
-                        item {
+                        item(key = "quickActions", span = { GridItemSpan(maxLineSpan) }) {
                             QuickActionsRow(
                                 onAddNoteClick = onAddNoteClick,
                                 onAskAiClick = { /* TODO Phase 4 */ }
                             )
                         }
 
-                        item {
+                        item(key = "searchBar", span = { GridItemSpan(maxLineSpan) }) {
                             OutlinedTextField(
                                 value = uiState.searchQuery,
                                 onValueChange = onSearchQueryChange,
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(horizontal = 24.dp, vertical = 12.dp),
+                                    .padding(vertical = 12.dp),
                                 placeholder = { Text("Find ideas, tags, or content...") },
                                 leadingIcon = {
                                     Icon(Icons.Default.Search, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -173,7 +170,7 @@ internal fun HomeScreen(
                             )
                         }
 
-                        item {
+                        item(key = "toolbar", span = { GridItemSpan(maxLineSpan) }) {
                             HomeToolbar(
                                 sortOrder = uiState.sortOrder,
                                 isGridView = uiState.isGridView,
@@ -183,7 +180,7 @@ internal fun HomeScreen(
                         }
 
                         if (uiState.notes.isEmpty() && uiState.pinnedNotes.isEmpty()) {
-                            item {
+                            item(span = { GridItemSpan(maxLineSpan) }) {
                                 Box(
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -200,44 +197,32 @@ internal fun HomeScreen(
                             }
                         } else {
                             if (uiState.pinnedNotes.isNotEmpty()) {
-                                item { SectionHeader("Pinned") }
-                                if (uiState.isGridView) {
-                                    item {
-                                        NoteGrid(
-                                            notes = uiState.pinnedNotes,
-                                            onNoteClick = onNoteClick
-                                        )
-                                    }
-                                } else {
-                                    items(uiState.pinnedNotes, key = { it.id }) { note ->
-                                        NoteCard(
-                                            note = note,
-                                            modifier = Modifier
-                                                .padding(horizontal = 24.dp, vertical = 6.dp)
-                                                .clickable { onNoteClick(note.id) }
-                                        )
-                                    }
+                                item(span = { GridItemSpan(maxLineSpan) }) { SectionHeader("Pinned") }
+                                items(
+                                    items = uiState.pinnedNotes,
+                                    key = { it.id + "_pinned" }
+                                ) { note ->
+                                    NoteCard(
+                                        note = note,
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .clickable { onNoteClick(note.id) }
+                                    )
                                 }
                             }
 
                             if (uiState.notes.isNotEmpty()) {
-                                item { SectionHeader("Recent Notes") }
-                                if (uiState.isGridView) {
-                                    item {
-                                        NoteGrid(
-                                            notes = uiState.notes,
-                                            onNoteClick = onNoteClick
-                                        )
-                                    }
-                                } else {
-                                    items(uiState.notes, key = { it.id }) { note ->
-                                        NoteCard(
-                                            note = note,
-                                            modifier = Modifier
-                                                .padding(horizontal = 24.dp, vertical = 6.dp)
-                                                .clickable { onNoteClick(note.id) }
-                                        )
-                                    }
+                                item(span = { GridItemSpan(maxLineSpan) }) { SectionHeader("Recent Notes") }
+                                items(
+                                    items = uiState.notes,
+                                    key = { it.id }
+                                ) { note ->
+                                    NoteCard(
+                                        note = note,
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .clickable { onNoteClick(note.id) }
+                                    )
                                 }
                             }
                         }
@@ -289,7 +274,7 @@ fun InsightsRow(totalNotes: Int) {
         modifier = Modifier
             .fillMaxWidth()
             .horizontalScroll(rememberScrollState())
-            .padding(horizontal = 24.dp, vertical = 8.dp),
+            .padding(vertical = 8.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         InsightCard(
@@ -325,26 +310,22 @@ fun InsightCard(title: String, value: String, icon: ImageVector) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun QuickActionsRow(onAddNoteClick: () -> Unit, onAskAiClick: () -> Unit) {
-    LazyRow(
-        contentPadding = PaddingValues(horizontal = 24.dp, vertical = 8.dp),
+    Row(
+        modifier = Modifier.padding(vertical = 8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        item {
-            FilterChip(
-                selected = false,
-                onClick = onAddNoteClick,
-                label = { Text("New Note") },
-                leadingIcon = { Icon(Icons.Default.Add, contentDescription = null, modifier = Modifier.size(16.dp)) }
-            )
-        }
-        item {
-            FilterChip(
-                selected = false,
-                onClick = onAskAiClick,
-                label = { Text("Ask AI") },
-                leadingIcon = { Icon(Icons.Default.AutoAwesome, contentDescription = null, modifier = Modifier.size(16.dp)) }
-            )
-        }
+        FilterChip(
+            selected = false,
+            onClick = onAddNoteClick,
+            label = { Text("New Note") },
+            leadingIcon = { Icon(Icons.Default.Add, contentDescription = null, modifier = Modifier.size(16.dp)) }
+        )
+        FilterChip(
+            selected = false,
+            onClick = onAskAiClick,
+            label = { Text("Ask AI") },
+            leadingIcon = { Icon(Icons.Default.AutoAwesome, contentDescription = null, modifier = Modifier.size(16.dp)) }
+        )
     }
 }
 
@@ -354,7 +335,7 @@ fun SectionHeader(title: String) {
         text = title,
         style = MaterialTheme.typography.titleMedium,
         fontWeight = FontWeight.SemiBold,
-        modifier = Modifier.padding(start = 24.dp, end = 24.dp, top = 20.dp, bottom = 8.dp),
+        modifier = Modifier.padding(top = 20.dp, bottom = 8.dp),
         color = MaterialTheme.colorScheme.onBackground
     )
 }
@@ -371,7 +352,7 @@ private fun HomeToolbar(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 24.dp, vertical = 0.dp),
+            .padding(vertical = 0.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -417,31 +398,3 @@ private val sortOrderEntries = listOf(
     SortOrder.TitleDesc to "Z-A"
 )
 
-// Helper internal grid component to embed in LazyColumn
-@Composable
-private fun NoteGrid(notes: List<Note>, onNoteClick: (String) -> Unit) {
-    // Due to nesting scrollables (LazyVerticalGrid in LazyColumn), we have to simulate a grid.
-    // A simpler way is chunking the notes list into rows.
-    val chunked = notes.chunked(2)
-    Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp)) {
-        chunked.forEach { rowNotes ->
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                rowNotes.forEach { note ->
-                    Box(modifier = Modifier.weight(1f)) {
-                        NoteCard(
-                            note = note,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 8.dp)
-                                .clickable { onNoteClick(note.id) }
-                        )
-                    }
-                }
-                // Handle odd items
-                if (rowNotes.size == 1) {
-                    Spacer(modifier = Modifier.weight(1f))
-                }
-            }
-        }
-    }
-}

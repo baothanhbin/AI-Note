@@ -9,6 +9,12 @@ android {
     }
 }
 
+composeCompiler {
+    stabilityConfigurationFile.set(
+        rootProject.layout.projectDirectory.file("compose_compiler_config.conf")
+    )
+}
+
 dependencies {
     val libs = project.extensions.getByType<org.gradle.api.artifacts.VersionCatalogsExtension>().named("libs")
     val bom = libs.findLibrary("androidx-compose-bom").get()

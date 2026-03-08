@@ -1,7 +1,7 @@
 package com.ainote.data.repository.impl
 
 import com.ainote.core.datastore.PreferencesDataStore
-import com.ainote.data.repository.UserDataRepository
+import com.ainote.domain.repository.UserDataRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

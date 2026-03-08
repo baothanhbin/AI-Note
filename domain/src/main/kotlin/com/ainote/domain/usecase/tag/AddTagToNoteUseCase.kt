@@ -1,7 +1,7 @@
 package com.ainote.domain.usecase.tag
 
 import com.ainote.core.model.note.Tag
-import com.ainote.data.repository.TagRepository
+import com.ainote.domain.repository.TagRepository
 import java.util.UUID
 import javax.inject.Inject
 

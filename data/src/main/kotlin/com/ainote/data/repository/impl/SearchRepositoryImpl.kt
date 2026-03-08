@@ -2,7 +2,7 @@ package com.ainote.data.repository.impl
 
 import com.ainote.core.database.dao.SearchDao
 import com.ainote.core.model.search.SearchResult
-import com.ainote.data.repository.SearchRepository
+import com.ainote.domain.repository.SearchRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
